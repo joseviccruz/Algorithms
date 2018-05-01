@@ -81,42 +81,42 @@ struct FlowNetwork {
 		return ans;
 	}
 
-    bool dfs_scaling(int v, int src, T lim) {
-        if (lim == 0) return 0;
-		if (v == src) return 1;
-		for(; on[v] < adj[v].size(); on[v]++) {
-			int id = adj[v][on[v]];
-			if (level[v] + 1 != level[edges[id].to]) {
-				continue;
-			}
-			if (edges[id].cap >= lim) {
-				if (dfs(edges[id].to, src, lim)) {
-					edges[id].cap -= lim;
-					edges[id ^ 1].cap += lim;
-					return 1;
+   	bool dfs_scaling(int v, int src, T lim) {
+        	if (lim == 0) return 0;
+			if (v == src) return 1;
+			for(; on[v] < adj[v].size(); on[v]++) {
+				int id = adj[v][on[v]];
+				if (level[v] + 1 != level[edges[id].to]) {
+					continue;
+				}
+				if (edges[id].cap >= lim) {
+					if (dfs(edges[id].to, src, lim)) {
+						edges[id].cap -= lim;
+						edges[id ^ 1].cap += lim;
+						return 1;
+					}
 				}
 			}
-		}
-		return 0;
-	}
+			return 0;
+	 }
 
-    T max_flow_scaling(int sink, int src, int scale) {
-        T ans = 0;
-        T lim = (1 << min(scale, 32));
+  	 T max_flow_scaling(int sink, int src, int scale) {
+		T ans = 0;
+		T lim = (1 << min(scale, 32));
 
-        while (lim >= 1) {
-            if (!bfs(sink, src)) {
-                lim >>= 1;
-                continue;
-            }
+		while (lim >= 1) {
+	            if (!bfs(sink, src)) {
+			lim >>= 1;
+			continue;
+		    }
 
-            on = vector<int>(n + 2, 0);
+	 	    on = vector<int>(n + 2, 0);
 
-            while(dfs_scaling(sink, src, 1e9)) {
-				ans += lim;
-			}
-        }
+		    while(dfs_scaling(sink, src, 1e9)) {
+					ans += lim;
+           	    }
+	         }
 
-        return ans;
-    }
+                 return ans;
+         }
 };
