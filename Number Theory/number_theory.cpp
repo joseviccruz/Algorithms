@@ -50,9 +50,8 @@ namespace NumberTheory {
 	
 	inline llu gcd(llu a, llu b) {
 		while(a) {
-			register llu r = b % a;
-			b = a;
-			a = r;
+			b %= a;
+			swap(a, b);
 		}
 		return b;
 	}
