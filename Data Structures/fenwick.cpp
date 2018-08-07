@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 template <typename T>
 struct fenwick { // 1-based indexing
 	vector<T> t;
@@ -27,10 +23,3 @@ struct fenwick { // 1-based indexing
 	}
 	inline T query(int x) { return get(x); }
 };
-
-int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-	
-	return 0;
-}
