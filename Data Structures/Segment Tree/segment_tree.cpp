@@ -1,5 +1,5 @@
 template<typename T1>
-struct segment_tree { // 0-based indexing
+struct segment_tree {
 	int n;
 	vector<T1> t;
 	
