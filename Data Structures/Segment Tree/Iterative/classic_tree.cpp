@@ -36,7 +36,7 @@ private:
 	}
 	
 public:
-	classic_tree(const int _n = 0) : segment_tree<T1>(_n) {}
+	classic_tree(const int _n = 0) { n = _n, t = vector<T1>(_n << 1); }
 	classic_tree(const vector<T2> &base) { init(base); }
 	
 	inline void init(const vector<T2> &base) {
