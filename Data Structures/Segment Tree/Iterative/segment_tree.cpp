@@ -6,5 +6,5 @@ struct segment_tree { // 0-based indexing
 	inline int L(const int &x) { return (x << 1); }
 	inline int R(const int &x) { return (x << 1)|1; }
 	
-	segment_tree(const int _n = 0) : n(_n), t(vector<T1>(_n << 1)) {}
+	segment_tree() : n(0), t(vector<T1>()) {}
 };
