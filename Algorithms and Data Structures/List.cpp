@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#define loop(a, b, c) for(int a = b; a < c; a++)
 
 using namespace std;
 
