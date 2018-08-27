@@ -234,8 +234,8 @@ inline ld to_radian(const ld angle) { return PI * angle / 180.0l; }
 inline ld haversine(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = 6378.0) {
 	ld la = xla - yla;
 	ld lo = xlo - ylo;
-	double a = sin(la / 2.0) * sin(la / 2.0) + cos(xla) * cos(yla) * sin(lo / 2.0) * sin(lo / 2.0);
-	double c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a));
+	ld a = sin(la / 2.0) * sin(la / 2.0) + cos(xla) * cos(yla) * sin(lo / 2.0) * sin(lo / 2.0);
+	ld c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a));
 	return r * c;
 }
 
