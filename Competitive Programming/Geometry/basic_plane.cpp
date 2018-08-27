@@ -224,10 +224,47 @@ inline ld Heron(const ld a, const ld b, const ld c) { ld sp = (a + b + c) / 2.0;
 
 // sorting by polar: { return cross(a - pivot, b - pivot) > 0; }
 
+// Convert radians in degrees
+inline ld to_degree(const ld rad) { return rad * 180.0l / PI; }
+
+// Convert degrees in radians
+inline ld to_radian(const ld angle) { return PI * angle / 180.0l; }
+
+// Distance between two points on a sphere from their longitudes and latitudes in radians (inaccurate)
+inline ld haversine(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = 6378.0) {
+	ld la = xla - yla;
+	ld lo = xlo - ylo;
+	double a = sin(la / 2.0) * sin(la / 2.0) + cos(xla) * cos(yla) * sin(lo / 2.0) * sin(lo / 2.0);
+	double c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a));
+	return r * c;
+}
+
+// Distance between two points on a sphere from their longitudes and latitudes in radians, using law of cosines:
+inline ld dist_in_sphere(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = R) {
+	ld d = abs(xlo - ylo);
+	if(d > PI) {
+		d = 2.0 * PI - d;
+	}
+	return r * acos(cos(xla) * cos(yla) * cos(d) + sin(xla) * sin(yla));
+}
+
+/*
+Picks theorem:
+Given a simple polygon constructed on a grid of equal-distanced points
+(i.e., points with integer coordinates) such that all the polygon's vertices
+are grid points, Pick's theorem provides a simple formula for calculating the
+area A of this polygon in terms of the number i of lattice points in the interior
+located in the polygon and the number b of lattice points on the boundary placed on
+the polygon's perimeter.
+
+area = interior_points + (boundary_points / 2) - 1
+*/
+
 /************************************************************************************/
 
 int main() {
-	ios::sync_with_stdio(0), cin.tie(0);
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 	
 	return 0;
 }
