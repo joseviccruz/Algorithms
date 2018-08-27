@@ -231,6 +231,7 @@ inline ld to_degree(const ld rad) { return rad * 180.0l / PI; }
 inline ld to_radian(const ld angle) { return PI * angle / 180.0l; }
 
 // Distance between two points on a sphere from their longitudes and latitudes in radians (inaccurate)
+// Verify first if x == y
 inline ld haversine(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = 6378.0) {
 	ld la = xla - yla;
 	ld lo = xlo - ylo;
@@ -240,6 +241,7 @@ inline ld haversine(const ld xla, const ld xlo, const ld yla, const ld ylo, cons
 }
 
 // Distance between two points on a sphere from their longitudes and latitudes in radians, using law of cosines:
+// Verify first if x == y
 inline ld dist_in_sphere(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = R) {
 	ld d = abs(xlo - ylo);
 	if(d > PI) {
