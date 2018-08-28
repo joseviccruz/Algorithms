@@ -242,13 +242,15 @@ inline ld haversine(const ld xla, const ld xlo, const ld yla, const ld ylo, cons
 
 // Distance between two points on a sphere from their longitudes and latitudes in radians, using law of cosines:
 // Verify first if x == y
-inline ld dist_in_sphere(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = R) {
+inline ld dist_in_sphere(const ld xla, const ld xlo, const ld yla, const ld ylo, const ld r = 6378.0) {
 	ld d = abs(xlo - ylo);
 	if(d > PI) {
 		d = 2.0 * PI - d;
 	}
 	return r * acos(cos(xla) * cos(yla) * cos(d) + sin(xla) * sin(yla));
 }
+
+// Distance beetween two points on a sphere can be converted to a tridimensional plane...
 
 /*
 Picks theorem:
