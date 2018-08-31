@@ -22,9 +22,9 @@ Possíveis dúvidas em relação ao código:
 			// Atualiza as alturas...
 			// Returna aux1, a nova raiz;
 			
-				   B
-				/     \
-			   A	   C
+					    B
+					 /     \
+					A       C
 	
 	Exemplo de um caso de rotação dupla:
 		B	-- height == 3, balance == 2
@@ -38,13 +38,13 @@ Possíveis dúvidas em relação ao código:
 		* Logo, uma rotação a direita irá ocorrer em D, e a nova configuração será:
 		   		   B
 				     \
-			    	   C
+			    	       C
 			    	   	 \
 			    	   	   D
 		* E por fim, uma rotação normal a esqueda:			
 				   C
 				/     \
-			   B	   D
+			       B       D
 */
 
 #include <bits/stdc++.h>
