@@ -94,6 +94,9 @@ namespace NumberTheory {
 		}
 		return false;
 	}
+	
+	// No of divisors of a number = (1 + a) * (1 + b) * ... * (1 + n), where [a, b, ..., n]
+	// are coefficients of each prime value that divides this number.
 }
 
 using namespace NumberTheory;
