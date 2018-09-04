@@ -27,7 +27,7 @@ Possíveis dúvidas em relação ao código:
 					A       C
 	
 	Exemplo de um caso de rotação dupla:
-		B	-- height == 3, balance == 2
+		B -- height == 3, balance == 2
 		  \
 		    D -- height == 2, balance == 1
 		  /
