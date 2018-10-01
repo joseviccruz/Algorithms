@@ -24,7 +24,7 @@ void dfs(const int from, const int p) {
 	for(int &id : adj[from]) {
 		int to = from ^ edges[id].from ^ edges[id].to;
 		if(to != p) {
-				dfs(to, from);
+			dfs(to, from);
 		}
 	}
 	tout[from] = timer++;
