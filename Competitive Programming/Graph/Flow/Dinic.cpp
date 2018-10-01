@@ -11,7 +11,6 @@ struct Edge {
 	int to;
 	T c;
 	T f;
-	
 	Edge(int _from, int _to, T _c, T _f) : from(_from), to(_to), c(_c), f(_f) {}
 };
 
