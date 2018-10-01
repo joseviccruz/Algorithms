@@ -5,19 +5,17 @@
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-template <typename T>
-struct Edge {
+using ll = long long;
+using ld = long double;
+using T = ll; // type of flow [!!!]
+
+struct edge {
 	int from;
 	int to;
 	T c;
 	T f;
-	Edge(int _from, int _to, T _c, T _f) : from(_from), to(_to), c(_c), f(_f) {}
+	edge(int _from, int _to, T _c, T _f) : from(_from), to(_to), c(_c), f(_f) {}
 };
-
-using ll = long long;
-using ld = long double;
-using T = ll; // type of flow [!!!]
-using edge = Edge<T>; // Depends on type [!!!]
 
 const T eps = (T) 1e-9; // Depends on type [!!!]
 const T oo = 1e9; // Depends on type [!!!]
