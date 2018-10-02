@@ -29,7 +29,7 @@ vector<int> q; // Queue
 T flow; // Depends on type [!!!]
 
 // Adds two edges, flow in and flow out [!!!]
-inline int add(int from, int to, T fcap, T bcap = 0) { // fcap and bcap ((bcap != 0) == undirected edge) depends on type [!!!]
+inline int add(int from, int to, T fcap, T bcap = 0) { // fcap and bcap depends on type [!!!]
 	assert(0 <= from && from < n && 0 <= to && to < n);
 	int id = edges.size();
 	edges.emplace_back(from, to, fcap, 0);
