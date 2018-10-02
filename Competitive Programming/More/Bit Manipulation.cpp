@@ -18,3 +18,8 @@ inline int count_bits(const T &n) {
 	}
 	return ans;
 }
+/*
+	Things to remember:
+	- std::bitset<size_t> just have '==' and '!=' defined;
+	- ...
+*/
