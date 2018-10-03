@@ -8,7 +8,8 @@ using urand = mt19937;
 using llurand = mt19937_64;
 
 urand rng(chrono::high_resolution_clock::now().time_since_epoch().count());
-chrono::high_resolution_clock::time_point start_time = chrono::high_resolution_clock::now();
+auto start_time = chrono::high_resolution_clock::now();
+// chrono::high_resolution_clock::time_point start_time = chrono::high_resolution_clock::now();
 
 template<typename T>
 inline T elapsed() {
