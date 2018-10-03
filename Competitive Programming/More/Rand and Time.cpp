@@ -7,7 +7,7 @@ using namespace std;
 using urand = mt19937;
 using llurand = mt19937_64;
 
-urand vrand(chrono::high_resolution_clock::now().time_since_epoch().count());
+urand rng(chrono::high_resolution_clock::now().time_since_epoch().count());
 chrono::high_resolution_clock::time_point start_time = chrono::high_resolution_clock::now();
 
 template<typename T>
@@ -19,8 +19,8 @@ inline T elapsed() {
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(0);
-	//unsigned x = vrand();
-	//shuffle(v.begin(), v.end(), vrand);
+	//unsigned x = rng();
+	//shuffle(v.begin(), v.end(), rng);
 	while(elapsed<int>() < 5);
 	cout << "elapsed time = " << elapsed<int>() << '\n';
 	return 0;
