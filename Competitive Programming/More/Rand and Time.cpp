@@ -1,5 +1,5 @@
-//https://codeforces.com/blog/entry/61587
-//http://www.cplusplus.com/reference/chrono/
+// https://codeforces.com/blog/entry/61587
+// http://www.cplusplus.com/reference/chrono/
 #include <bits/stdc++.h>
 
 using namespace std;
