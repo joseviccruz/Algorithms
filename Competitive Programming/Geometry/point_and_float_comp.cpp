@@ -17,9 +17,9 @@ public:
 	PT operator /=(F k) { x /= k; y /= k; return *this; }
 
 	PT operator +(const PT &p) const { return PT(*this) += p; }
-    PT operator -(const PT &p) const { return PT(*this) -= p; }
-    PT operator *(F k) const { return PT(*this) *= k; }
-    PT operator /(F k) const { return PT(*this) /= k; }
+	PT operator -(const PT &p) const { return PT(*this) -= p; }
+	PT operator *(F k) const { return PT(*this) *= k; }
+	PT operator /(F k) const { return PT(*this) /= k; }
 
 	// Dot, Cross, Angle, Norm
 	F operator *(const PT &p) const { return x * p.x + y * p.y; } // v · w == v * w
