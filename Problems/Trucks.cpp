@@ -11,7 +11,7 @@ public:
 		int from;
 		int to;
 		T cost;
-		edge(int a, int b, int c)
+		edge(int a, int b, T c)
 		: from(a), to(b), cost(c) {}
 	};
 	const int maxl = 25;
