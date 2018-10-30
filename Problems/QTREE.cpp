@@ -92,9 +92,8 @@ public:
 	// y always has a lower depth than x
 	T get(int x, int y, function<T(T, T)> merge, function<T(int, int)> f) {
 		T ans{};
-		for(; nxt[x] != nxt[y]; x = up[nxt[x]][0]) {
+		for(; nxt[x] != nxt[y]; x = up[nxt[x]][0])
 			ans = merge(ans, f(in[nxt[x]], in[x]));
-		}
 		return merge(ans, f(in[y] + 1, in[x])); // in[y] + 1 to doesn't include last node
 	}
 	
