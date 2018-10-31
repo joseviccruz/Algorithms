@@ -3,6 +3,7 @@ using Matrix = vector<vector<T>>;
 
 template <class T>
 Matrix<T> operator * (const Matrix<T> &lhs, const Matrix<T> &rhs) {
+	assert(lhs.front().size() == rhs.size());
 	int rows = lhs.size();
 	int cowls = rhs.front().size();
 	int common = rhs.size();
