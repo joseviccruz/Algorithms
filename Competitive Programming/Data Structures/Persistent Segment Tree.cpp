@@ -23,7 +23,7 @@ struct node_t {
   }
 };
 
-template <typename n_t>
+template <typename n_t, size_t sz = 1 << 22>
 class persistent_t {
 public:
   int n;
@@ -112,9 +112,9 @@ public:
   
   persistent_t(int _n) : n(_n) {
     z = 1;
-    st.assign((1 << 22) + (n << 2), n_t()); // [!!!]
-    vl.resize((1 << 22) + (n << 2));
-    vr.resize((1 << 22) + (n << 2));
+    st.assign(sz, n_t()); // [!!!]
+    vl.resize(sz);
+    vr.resize(sz);
     build(0, 0, n - 1);
     ptr.assign(1, 0);
   }
@@ -123,9 +123,9 @@ public:
   persistent_t(const vector<T> &base) {
     n = base.size();
     z = 1;
-    st.assign((1 << 22) + (n << 2), n_t()); // [!!!]
-    vl.resize((1 << 22) + (n << 2));
-    vr.resize((1 << 22) + (n << 2));
+    st.assign(sz, n_t()); // [!!!]
+    vl.resize(sz);
+    vr.resize(sz);
     build(0, 0, n - 1, base);
     ptr.assign(1, 0);
   }
