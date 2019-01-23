@@ -33,7 +33,7 @@ public:
   }
 
   void pop() {
-    if(str.empty())
+    if (str.empty())
       transfer();
     str.pop();
   }
