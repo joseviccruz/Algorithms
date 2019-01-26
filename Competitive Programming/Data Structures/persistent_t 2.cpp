@@ -23,7 +23,7 @@ struct node_t {
   }
 };
 
-template <typename n_t, size_t sz = 1 << 22>
+template <class n_t, size_t sz = 1 << 22>
 class persistent_t {
 public:
   int n;
@@ -44,7 +44,7 @@ public:
     }
   }
   
-  template <typename T>
+  template <class T>
   void build(int x, int l, int r, const vector<T> &base) {
     if (l == r) {
       st[x] = n_t(base[l]);
@@ -71,7 +71,7 @@ public:
   }
   
   // pos, value
-  template <typename T>
+  template <class T>
   int modify(int p, T v, int x, int l, int r) {
     if (l > p || p > r) {
       return x;
@@ -103,7 +103,7 @@ public:
   }
   
   // version v, pos p, value vv
-  template <typename T>
+  template <class T>
   int modify(int v, int p, T vv) {
     assert(v >= 0 && v < ptr.size());
     ptr.push_back(modify(p, vv, ptr[v], 0, n - 1));
@@ -119,7 +119,7 @@ public:
     ptr.assign(1, 0);
   }
   
-  template <typename T>
+  template <class T>
   persistent_t(const vector<T> &base) {
     n = base.size();
     z = 1;
