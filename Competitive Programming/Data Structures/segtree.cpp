@@ -10,7 +10,7 @@ struct node_t {
   }
 };
 
-template <typename n_t>
+template <class n_t>
 class segtree_t {
   int n;
   vector<n_t> st;
@@ -21,7 +21,7 @@ class segtree_t {
       st[x] = n_t(st[x + x], st[x + x + 1]);
   }
   
-  template <typename T>
+  template <class T>
   void build(const vector<T> &base) {
     for (int x = 0; x < n; x++)
       st[x + n] = n_t(base[x]);
@@ -30,7 +30,7 @@ class segtree_t {
   }
 
 public:
-  template <typename T>
+  template <class T>
   void modify(int x, T y) {
     assert(x >= 0 && x < n);
     for (st[x += n] = n_t(y), x >>= 1; x; x >>= 1)
