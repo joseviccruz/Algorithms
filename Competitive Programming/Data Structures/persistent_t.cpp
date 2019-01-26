@@ -126,7 +126,7 @@ public:
     ptr.push_back(build(0, n - 1));
   }
   
-  template <typename T>
+  template <class T>
   persistent_t(const vector<T> &base) {
     while (!ptr.empty()) {
       clear(ptr.back());
