@@ -3,11 +3,11 @@
 using namespace __gnu_pbds;
 
 template <typename Key, typename T = null_type, typename Compare = less<Key>>
-using indexed_tree = tree<Key, T, Compare, rb_tree_tag, tree_order_statistics_node_update>;
+using ordered_t = tree<Key, T, Compare, rb_tree_tag, tree_order_statistics_node_update>;
 
 /**
- * indexed_map == indexed_tree<Key, T>;
- * indexed_set == indexed_tree<Key, null_type>;
+ * ordered_map_t == ordered_t<Key, T>;
+ * ordered_set_t == ordered_t<Key, null_type>;
  * 
  * .order_of_key(const Key x)      - return the number of elements less than 'x'
  * .find_by_order(const size_t n) - return the 'n-th' (0-indexed) smallest number stored in this tree
