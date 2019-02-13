@@ -1,6 +1,10 @@
 struct node_t {
   // atributes, don't forget to set default value
   
+  node_t(...) {
+    ...
+  }
+
   inline void operator += (node_t &other) {
     
   }
