@@ -6,9 +6,10 @@
 
   The edges will correspond to the implications
 */
+
 class twosat_t {
-  int n;   // size, just expr
-  int g_n; // 2 times size, expr, not expr
+  int n;
+  int g_n;
   vector<bool> mark;
   vector<int> order, cmp;
   vector<vector<int>> adj, radj;
