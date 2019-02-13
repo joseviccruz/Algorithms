@@ -46,21 +46,21 @@ class twosat_t {
   }
 
 public:
-  twosat_t(int _n) : n(_n), g_n(2 * _n) {
+  twosat_t(int _n) : n(_n), g_n(_n + _n) {
     adj.assign(g_n, vector<int>());
   }
 
   void add(int x, int v_x) {
     assert(x >= 0 && x < n);
     assert(v_x >= 0 && v_x <= 1);
-    adj[2 * x + (v_x ^ 1)].push_back(2 * x + v_x);
+    adj[x + x + (v_x ^ 1)].push_back(x + x + v_x);
   }
 
   void add(int x, int v_x, int y, int v_y) {
     assert(x >= 0 && x < n && y >= 0 && y < n);
     assert(v_x + v_y >= 0 && v_x + v_y <= 2);
-    adj[2 * x + (v_x ^ 1)].push_back(2 * y + v_y);
-    adj[2 * y + (v_y ^ 1)].push_back(2 * x + v_x);
+    adj[x + x + (v_x ^ 1)].push_back(y + y + v_y);
+    adj[y + y + (v_y ^ 1)].push_back(x + x + v_x);
   }
 
   vector<int> solve() {
@@ -73,9 +73,9 @@ public:
     scc();
     vector<int> ans(n);
     for (int i = 0; i < n; i++) {
-      if (cmp[2 * i] == cmp[2 * i + 1])
+      if (cmp[i + i] == cmp[i + i + 1])
         return vector<int>();
-      ans[i] = cmp[2 * i] < cmp[2 * i + 1];
+      ans[i] = cmp[i + i] < cmp[i + i + 1];
     }
     return ans;
   }
