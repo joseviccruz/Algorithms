@@ -2,7 +2,7 @@
 
 using namespace __gnu_pbds;
 
-template <typename Key, typename T = null_type, typename Compare = less<Key>>
+template <class Key, class T = null_type, class Compare = less<Key>>
 using ordered_t = tree<Key, T, Compare, rb_tree_tag, tree_order_statistics_node_update>;
 
 /**
