@@ -21,12 +21,11 @@ class segtree_t {
   }
 
 public:
-  segtree_t(int _n) : n(_n) {
-    tree.assign(n + n, n_t());
+  segtree_t(int _n) : n(_n), tree(_n + _n) {
     build();
   }
   
-  template <typename T>
+  template <class T>
   segtree_t(const vector<T> &base) : n(base.size()) {
     tree.resize(n);
     copy(base.begin(), base.end(), back_inserter(tree));
