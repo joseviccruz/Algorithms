@@ -58,7 +58,7 @@ public:
 
   void add(int x, int v_x, int y, int v_y) {
     assert(x >= 0 && x < n && y >= 0 && y < n);
-    assert(v_x + v_y >= 0 && v_x + v_y <= 2);
+    assert(v_x >= 0 && v_x <= 1 && v_y >= 0 && v_y <= 1);
     adj[x + x + (v_x ^ 1)].push_back(y + y + v_y);
     adj[y + y + (v_y ^ 1)].push_back(x + x + v_x);
   }
