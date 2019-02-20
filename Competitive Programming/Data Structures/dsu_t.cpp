@@ -3,7 +3,7 @@ struct dsu_t {
   vector<int> cnj;
 
 public:
-  dsu_t(int _n) : n(_n), cnj(n) {
+  dsu_t(int _n) : n(_n), cnj(_n) {
     iota(cnj.begin(), cnj.end(), 0);
   }
   
