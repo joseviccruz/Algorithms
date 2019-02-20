@@ -16,8 +16,7 @@ class fenwick_t {
   vector<T> tree;
 
 public:
-  fenwick_t(int _n) : n(_n) {
-    tree.resize(n);
+  fenwick_t(int _n) : n(_n), tree(_n) {
   }
   
   void modify(int x, T v) {
