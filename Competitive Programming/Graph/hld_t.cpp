@@ -1,6 +1,6 @@
 // get will return pairs in order of the path
 template <class T>
-class hld_graph_t {
+class hld_t {
 public:
   struct edge_t {
     int from;
@@ -20,7 +20,7 @@ public:
     return up[x][0];
   }
   
-  hld_graph_t(int _n) : n(_n), max_log(0), preprocessed(false) {
+  hld_t(int _n) : n(_n), max_log(0), preprocessed(false) {
     assert(n > 0);
     while ((1 << max_log) <= n)
       max_log++;
@@ -132,5 +132,3 @@ public:
     return ret;
   }
 };
-
-using hld_t = hld_graph_t<int>;
