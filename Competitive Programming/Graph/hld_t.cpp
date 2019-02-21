@@ -1,3 +1,4 @@
+// get will return pairs in order of the path
 template <class T>
 class hld_graph_t {
 public:
