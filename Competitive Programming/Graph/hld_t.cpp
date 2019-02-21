@@ -1,9 +1,3 @@
-/*
-get_path;
-  - return (-1, lca)
-  - can return one pair where first is greater than second! (do minmax)
-*/
-
 template <class T>
 class hld_graph_t {
 public:
@@ -19,7 +13,7 @@ public:
   bool preprocessed;
   vector<edge_t> edges;
   vector<vector<int>> adj, up;
-  vector<int> in, rin, out, nxt;
+  vector<int> in, rin, out, nxt, &pos = in;
   
   int &parent(int x) {
     return up[x][0];
@@ -46,10 +40,9 @@ public:
       return x;
     if (anc(y, x))
       return y;
-    for (int i = max_log - 1; i >= 0; i--) {
+    for (int i = max_log - 1; i >= 0; i--)
       if (!anc(up[x][i], y))
         x = up[x][i];
-    }
     return up[x][0];
   }
   
@@ -59,6 +52,13 @@ public:
     adj[x].push_back(id);
     adj[y].push_back(id);
     edges.emplace_back(x, y, d);
+  }
+
+  int edge_id(int e) {
+    assert(e >= 0 && e < edges.size());
+    int x = edges[e].from;
+    int y = edges[e].to;
+    return parent(x) == y ? pos[x] : pos[y];
   }
 
   void set_root(int x) {
@@ -99,9 +99,8 @@ public:
     preprocessed = true;
   }
 
-  vector<pair<int, int>> get_path(int x, int y, bool with_ancestor = true) {
+  vector<pair<int, int>> get(int x, int y, bool with_ancestor = true) {
     assert(preprocessed);
-    auto &pos = in;
     array<vector<pair<int, int>>, 2> path;
     int z = lca(x, y);
     for (int id = 0; id < 2; id++) {
@@ -123,19 +122,13 @@ public:
     return ret;
   }
   
-  vector<pair<int, int>> get_path_id(int x, int y, int with_ancestor = true) {
-    auto ret = get_path(x, y, with_ancestor);
-    for (auto &p : ret)
-      p = make_pair(rin[p.first], rin[p.second]);
+  vector<pair<int, int>> get_path(int x, int y, int with_ancestor = true) {
+    auto ret = get(x, y, with_ancestor);
+    for (auto &p : ret) {
+      p.first = (p.first == -1) ? p.first : rin[p.first];
+      p.second = (p.second == -1) ? p.second : rin[p.second];
+    }
     return ret;
-  }
-  
-  int edge_id(int e) {
-    assert(e >= 0 && e < edges.size());
-    auto &pos = in;
-    int x = edges[e].from;
-    int y = edges[e].to;
-    return parent(x) == y ? pos[x] : pos[y];
   }
 };
 
