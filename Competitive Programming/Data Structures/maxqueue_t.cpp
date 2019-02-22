@@ -35,7 +35,7 @@ public:
   void pop() {
     if (str.empty())
       transfer();
-    if (!str.empty())
+    else
       str.pop();
   }
 
