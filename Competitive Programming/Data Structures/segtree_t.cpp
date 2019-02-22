@@ -35,7 +35,7 @@ public:
   template <class T>
   void modify(int x, T y) {
     assert(x >= 0 && x < n);
-    for (tree[x += n] = n_t(y), x /= 2; x > 0; x /= 2)
+    for (tree[x += n] = n_t(y), x >>= 1; x > 0; x >>= 1)
       tree[x] = n_t(tree[x + x], tree[x + x + 1]);
   }
   
@@ -43,7 +43,7 @@ public:
     assert(l >= 0 && l < n);
     assert(r >= 0 && r < n);
     n_t lhs{}, rhs{};
-    for (l += n, r += n + 1; l < r; l /= 2, r /= 2) {
+    for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
       if (l & 1)
         lhs = n_t(lhs, tree[l++]);
       if (r & 1)
