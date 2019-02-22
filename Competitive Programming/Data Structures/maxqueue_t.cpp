@@ -35,7 +35,8 @@ public:
   void pop() {
     if (str.empty())
       transfer();
-    str.pop();
+    if (!str.empty())
+      str.pop();
   }
 
   T front() {
