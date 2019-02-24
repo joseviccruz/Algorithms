@@ -13,9 +13,6 @@ public:
   };
   set<range_t> ranges;
 
-  colorup_t() {
-  }
-
   vector<range_t> modify(Int l, Int r, T v) {
     vector<range_t> ret;
     if (l > r)
