@@ -4,6 +4,7 @@ public:
   struct range_t {
     Int l, r;
     T v;
+    
     range_t(Int l = 0, Int r = 0, T v = {}) : l(l), r(r), v(v) {
     }
     
