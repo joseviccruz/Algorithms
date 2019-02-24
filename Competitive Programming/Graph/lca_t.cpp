@@ -2,19 +2,20 @@ class lca_t {
 public:
   int n;
   int max_log;
-  vector<int> in, out;
+  vector<int> h, in, out;
   vector<vector<int>> adj, up;
-  
+
   lca_t(int _n) : n(_n) {
     max_log = 0;
     while ((1 << max_log) <= n)
       max_log++;
+    h.resize(n);
     in.resize(n);
     out.resize(n);
     adj.resize(n);
     up.resize(n, vector<int>(max_log));
   }
-  
+
   bool anc(int x, int y) {
     return in[x] <= in[y] && out[x] >= out[y];
   }
@@ -29,7 +30,7 @@ public:
         x = up[x][i];
     return up[x][0];
   }
-  
+
   void add(int x, int y) {
     adj[x].push_back(y);
     adj[y].push_back(x);
@@ -37,6 +38,7 @@ public:
 
   void set_root(int x) {
     int t = 0;
+    h[x] = 0;
     function<void(int, int)> dfs = [&](int v, int p) {
       in[v] = t++;
       up[v][0] = p;
@@ -46,6 +48,7 @@ public:
         int u = adj[v][i];
         if (u == p)
           continue;
+        h[u] = h[v] + 1;
         dfs(u, v);
       }
       out[v] = t;
