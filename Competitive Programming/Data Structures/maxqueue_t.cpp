@@ -1,6 +1,6 @@
-template <class T, class cmp_t = greater<T>>
+template <class T, class Compare = greater<T>>
 class maxqueue_t {
-  cmp_t cmp;
+  Compare cmp;
   stack<pair<T, T>> stl, str;
 
   void transfer() {
