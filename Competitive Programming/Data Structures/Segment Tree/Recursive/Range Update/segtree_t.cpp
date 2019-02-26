@@ -11,8 +11,10 @@ struct node_t {
   }
 };
 
-struct lazy_t { int _x, _l, _r;
-
+struct lazy_t {
+  int x, l, r;
+public:
+  
   void assign() {
   }
 
