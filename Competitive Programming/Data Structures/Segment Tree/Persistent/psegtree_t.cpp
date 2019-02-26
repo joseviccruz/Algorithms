@@ -7,7 +7,7 @@ struct node_t {
   }
 };
  
-template <typename n_t, size_t sz = -1>
+template <class n_t, size_t sz = -1>
 class psegtree_t {
   struct range_t { int l, r; };
   int n;
