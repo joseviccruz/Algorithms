@@ -7,7 +7,7 @@ struct node_t {
   }
 };
  
-template <class n_t, size_t sz = -1>
+template <class n_t, size_t sz = 0>
 class psegtree_t {
   struct range_t { int l, r; };
   int n;
@@ -94,10 +94,8 @@ public:
 
   psegtree_t(int _n) : n(_n) {
     z = 1;
-    if (sz != -1) {
-      st.reserve(sz);
-      v.reserve(sz);
-    }
+    st.reserve(sz);
+    v.reserve(sz);
     build(0, 0, n - 1);
     ptr.assign(1, 0);
   }
@@ -105,10 +103,8 @@ public:
   template <class T>
   psegtree_t(const vector<T> &base) : n(base.size()) {
     z = 1;
-    if (sz != -1) {
-      st.reserve(sz);
-      v.reserve(sz);
-    }
+    st.reserve(sz);
+    v.reserve(sz);
     build(0, 0, n - 1, base);
     ptr.assign(1, 0);
   }
