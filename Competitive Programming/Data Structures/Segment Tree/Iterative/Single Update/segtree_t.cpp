@@ -1,12 +1,10 @@
 struct node_t {
   // atributes, don't forget to set default value
   
-  node_t(...) {
-    ...
+  node_t() {
   }
   
   node_t(const node_t &lhs, const node_t &rhs) {
-    // merge
   }
 };
 
@@ -26,22 +24,18 @@ public:
   }
   
   template <class T>
-  segtree_t(const vector<T> &base) : n(base.size()) {
-    tree.resize(n);
+  segtree_t(const vector<T> &base) : n(base.size()), tree(base.size()) {
     copy(base.begin(), base.end(), back_inserter(tree));
     build();
   }
 
   template <class T>
   void modify(int x, T y) {
-    assert(x >= 0 && x < n);
     for (tree[x += n] = n_t(y), x >>= 1; x > 0; x >>= 1)
       tree[x] = n_t(tree[x + x], tree[x + x + 1]);
   }
   
   n_t get(int l, int r) {
-    assert(l >= 0 && l < n);
-    assert(r >= 0 && r < n);
     n_t lhs{}, rhs{};
     for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
       if (l & 1)
