@@ -67,8 +67,18 @@ class segtree_t {
     }
   }
 
+  n_t get(int ll, int rr, int x, int l, int r) {
+    push(x, l, r);
+    if (ll > r || l > rr)
+      return n_t();
+    if (ll <= l && r <= rr)
+      return tree[x];
+    int m = (l + r) / 2;
+    return n_t(get(ll, rr, x + x, l, m), get(ll, rr, x + x + 1, m + 1, r));
+  }
+
   template <class... Args>
-  void modify(int ll, int rr, int x, int l, int r, Args&... args) {
+  void modify(int ll, int rr, int x, int l, int r, Args&&... args) {
     push(x, l, r);
     if (ll > r || l > rr)
       return;
@@ -84,17 +94,19 @@ class segtree_t {
     tree[x] = n_t(tree[x + x], tree[x + x + 1]);
   }
 
-  n_t get(int ll, int rr, int x, int l, int r) {
-    push(x, l, r);
-    if (ll > r || l > rr)
-      return n_t();
-    if (ll <= l && r <= rr)
-      return tree[x];
-    int m = (l + r) / 2;
-    return n_t(get(ll, rr, x + x, l, m), get(ll, rr, x + x + 1, m + 1, r));
+public:
+  n_t get(int ll, int rr) {
+    return get(ll, rr, 1, 0, n - 1);
+  }
+  n_t get(int p) {
+    return get(p, p, 1, 0, n - 1);
   }
 
-public:
+  template <class... Args>
+  void modify(int ll, int rr, const Args&&... args) {
+    modify(ll, rr, 1, 0, n - 1, args...);
+  }
+
   segtree_t(int _n) : n(_n) {
     tree.resize(n << 2);
     lazy.resize(n << 2);
@@ -108,17 +120,5 @@ public:
     lazy.resize(n << 2);
     dirty.resize(n << 2);
     build(1, 0, n - 1, base);
-  }
-
-  template <class... Args>
-  void modify(int ll, int rr, const Args&... args) {
-    modify(ll, rr, 1, 0, n - 1, args...);
-  }
-
-  n_t get(int ll, int rr) {
-    return get(ll, rr, 1, 0, n - 1);
-  }
-  n_t get(int p) {
-    return get(p, p, 1, 0, n - 1);
   }
 };
