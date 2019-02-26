@@ -11,7 +11,7 @@ struct node_t {
   }
 };
 
-struct lazy_t { int x, l, r;
+struct lazy_t { int _x, _l, _r;
 
   void assign() {
   }
