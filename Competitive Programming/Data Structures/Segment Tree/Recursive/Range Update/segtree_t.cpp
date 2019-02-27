@@ -98,18 +98,22 @@ class segtree_t {
 
 public:
   n_t get(int ll, int rr) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
     return get(ll, rr, 1, 0, n - 1);
   }
   n_t get(int p) {
+    assert(0 <= p && p <= n - 1);
     return get(p, p, 1, 0, n - 1);
   }
 
   template <class... Args>
   void modify(int ll, int rr, const Args&&... args) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
     modify(ll, rr, 1, 0, n - 1, args...);
   }
 
   segtree_t(int _n) : n(_n) {
+    assert(n > 0);
     tree.resize(n << 2);
     lazy.resize(n << 2);
     dirty.resize(n << 2);
@@ -118,6 +122,7 @@ public:
 
   template <class T>
   segtree_t(const vector<T> &base) : n(base.size()) {
+    assert(n > 0);
     tree.resize(n << 2);
     lazy.resize(n << 2);
     dirty.resize(n << 2);
