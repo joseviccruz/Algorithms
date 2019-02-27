@@ -17,10 +17,6 @@ class maxqueue_t {
 
 public:  
   maxqueue_t() {
-    while (!stl.empty())
-      stl.pop();
-    while (!str.empty())
-      str.pop();
   }
 
   void push(T value) {
