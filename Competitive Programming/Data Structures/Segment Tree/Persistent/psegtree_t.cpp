@@ -50,13 +50,13 @@ class psegtree_t {
     }
   }
 
-  n_t get(int a, int b, int x, int l, int r) {
-    if (l > b || a > r)
+  n_t get(int ll, int rr, int x, int l, int r) {
+    if (l > rr || ll > r)
       return n_t();
-    if (a <= l && r <= b)
+    if (ll <= l && r <= rr)
       return st[x];
     int m = (l + r) / 2;
-    return n_t(get(a, b, v[x].l, l, m), get(a, b, v[x].r, m + 1, r));
+    return n_t(get(ll, rr, v[x].l, l, m), get(ll, rr, v[x].r, m + 1, r));
   }
   
   template <class... Args>
@@ -78,21 +78,28 @@ class psegtree_t {
   }
 
 public:
-  n_t get(int v, int a, int b) {
-    return get(a, b, ptr[v], 0, n - 1);
+  n_t get(int v, int ll, int rr) {
+    assert(0 <= v && v < ptr.size());
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    return get(ll, rr, ptr[v], 0, n - 1);
   }
   
   n_t get(int v, int p) {
+    assert(0 <= v && v < ptr.size());
+    assert(0 <= p && p <= n - 1);
     return get(p, p, ptr[v], 0, n - 1);
   }
 
   template <class... Args>
   int modify(int v, int p, Args&&... args) {
+    assert(0 <= v && v < ptr.size());
+    assert(0 <= p && p <= n - 1);
     ptr.push_back(modify(p, ptr[v], 0, n - 1, args...));
     return ptr.back();
   }
 
   psegtree_t(int _n) : n(_n) {
+    assert(n > 0);
     z = 1;
     st.reserve(sz);
     v.reserve(sz);
@@ -102,6 +109,7 @@ public:
 
   template <class T>
   psegtree_t(const vector<T> &base) : n(base.size()) {
+    assert(n > 0);
     z = 1;
     st.reserve(sz);
     v.reserve(sz);
