@@ -6,6 +6,7 @@ public:
   vector<int> in, rin, out, nxt;
   
   hld_t(int _n) : n(_n) {
+    assert(n > 0);
     max_log = 0;
     while ((1 << max_log) <= n)
       max_log++;
@@ -33,11 +34,13 @@ public:
   }
   
   void add(int x, int y) {
+    assert(0 <= x && x <= n - 1 && 0 <= y && y <= n - 1);
     adj[x].push_back(y);
     adj[y].push_back(x);
   }
 
   void set_root(int x) {
+    assert(0 <= x && x <= n - 1);
     vector<int> sz(n);
     function<void(int, int)> dfs_sz = [&](int v, int p) {
       sz[v] = 1;
@@ -73,6 +76,7 @@ public:
   }
 
   vector<pair<int, int>> get(int x, int y, bool with_ancestor = true) {
+    assert(0 <= x && x <= n - 1 && 0 <= y && y <= n - 1);
     vector<pair<int, int>> path[2];
     int z = lca(x, y);
     for (int id = 0; id < 2; id++) {
