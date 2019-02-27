@@ -1,5 +1,4 @@
 struct node_t {
-  // atributes, don't forget to set default value
   
   node_t() {
   }
@@ -29,10 +28,10 @@ public:
     build();
   }
 
-  template <class T>
-  void modify(int x, T y) {
+  template <class... Args>
+  void modify(int x, Args&&... args) {
     assert(x >= 0 && x < n);
-    for (tree[x += n] = n_t(y), x >>= 1; x > 0; x >>= 1)
+    for (tree[x += n] = n_t(args...), x >>= 1; x > 0; x >>= 1)
       tree[x] = n_t(tree[x + x], tree[x + x + 1]);
   }
   
