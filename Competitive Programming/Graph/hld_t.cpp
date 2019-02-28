@@ -70,7 +70,7 @@ public:
         nxt[u] = (i == 0) ? nxt[v] : u;
         dfs_hld(u, v);
       }
-      out[v] = t;
+      out[v] = t - 1;
     };
     dfs_hld(x, x);
   }
