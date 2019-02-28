@@ -51,7 +51,7 @@ public:
         h[u] = h[v] + 1;
         dfs(u, v);
       }
-      out[v] = t;
+      out[v] = t - 1;
     };
     dfs(x, x);
   }
