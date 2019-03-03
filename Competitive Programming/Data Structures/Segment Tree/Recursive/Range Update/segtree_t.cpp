@@ -20,9 +20,6 @@ public:
 
   void operator += (const lazy_t &o) {
   }
-
-  void clear() {
-  }
 };
 
 template <class n_t, class l_t>
@@ -64,7 +61,6 @@ class segtree_t {
         dirty[x + x] = true;
         dirty[x + x + 1] = true;
       }
-      lazy[x].clear();
       dirty[x] = false;
     }
   }
