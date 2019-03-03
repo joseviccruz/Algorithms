@@ -47,8 +47,8 @@ class segtree_t {
       return;
     }
     int m = (l + r) / 2;
-    build(x + x, l, m);
-    build(x + x + 1, m + 1, r);
+    build(x + x, l, m, base);
+    build(x + x + 1, m + 1, r, base);
     tree[x] = n_t(tree[x + x], tree[x + x + 1]);
   }
 
