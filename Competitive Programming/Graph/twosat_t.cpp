@@ -50,6 +50,7 @@ class twosat_t {
 
 public:
   twosat_t(int _n) : n(_n), g_n(_n + _n) {
+    assert(n > 0);
     adj.assign(g_n, vector<int>());
   }
 
