@@ -17,7 +17,7 @@ public:
   }
   
   void modify(int x, T v) {
-    assert(x >= 0 && x < n);
+    assert(x >= 0 && x <= n - 1);
     while (x < n) {
       tree[x] += v;
       x |= (x + 1);
@@ -25,7 +25,7 @@ public:
   }
   
   T get(int x) {
-    assert(x >= 0 && x < n);
+    assert(x >= 0 && x <= n - 1);
     T v{};
     while (x >= 0) {
       v += tree[x];
