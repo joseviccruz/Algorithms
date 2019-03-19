@@ -1,6 +1,6 @@
 /*
-  (    p xor q) equals to (    p or q) and (not p or not q)
-  (not p xor q) equals to (not p or q) and (    p or not q)
+  (    (p xor q)) equals to (    p or q) and (not p or not q)
+  (not (p xor q)) equals to (not p or q) and (    p or not q)
 
   (p or q) equals to (not p implies q) and (not q implies p)
 
