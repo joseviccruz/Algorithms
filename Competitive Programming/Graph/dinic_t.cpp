@@ -13,6 +13,7 @@ public:
   vector<int> h, q, ptr;
   
   dinic_t(int n) : n(n) {
+    assert(n > 0);
     h.resize(n);
     q.resize(n);
     ptr.resize(n);
@@ -20,6 +21,7 @@ public:
   }
   
   void add(int v, int u, T c = 1, T d = 0) {
+    assert(0 <= v && v <= n - 1 && 0 <= u && u <= n - 1);
     adj[v].push_back(edges.size());
     edges.push_back({v, u, c, 0});
     adj[u].push_back(edges.size());
