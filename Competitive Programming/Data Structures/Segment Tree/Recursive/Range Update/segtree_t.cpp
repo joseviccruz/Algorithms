@@ -22,7 +22,6 @@ struct lazy_t {
   void reset() {
   }
 
-//non_modificabile:
   const int x, l, r;
   
   lazy_t(int x = 0, int l = 0, int r = 0) : x(x), l(l), r(r) {
