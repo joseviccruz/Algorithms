@@ -48,8 +48,8 @@ class segtree_t {
     tree[x] = n_t(tree[x + 1], tree[z]);
   }
 
-  template <class T>
-  void build(int x, int l, int r, const vector<T> &base) {
+  template <class v_t>
+  void build(int x, int l, int r, const v_t &base) {
     lazy.emplace_back(x, l, r);
     if (l == r) {
       tree[x] = n_t(base[l]);
@@ -131,8 +131,8 @@ public:
     build(0, 0, n - 1);
   }
 
-  template <class T>
-  segtree_t(const vector<T> &base) : n(base.size()) {
+  template <class v_t>
+  segtree_t(const v_t &base) : n(base.size()) {
     assert(n > 0);
     tree.resize((n << 1) - 1);
     lazy.reserve((n << 1) - 1);
