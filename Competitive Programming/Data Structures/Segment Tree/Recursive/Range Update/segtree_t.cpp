@@ -111,6 +111,7 @@ public:
     assert(0 <= ll && ll <= rr && rr <= n - 1);
     return get(ll, rr, 0, 0, n - 1);
   }
+
   n_t get(int p) {
     assert(0 <= p && p <= n - 1);
     return get(p, p, 0, 0, n - 1);
