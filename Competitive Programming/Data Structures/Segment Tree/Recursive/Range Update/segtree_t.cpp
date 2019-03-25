@@ -89,7 +89,7 @@ class segtree_t {
   }
 
   template <class... Args>
-  void modify(int ll, int rr, int x, int l, int r, Args&... args) {
+  void modify(int ll, int rr, int x, int l, int r, const Args&... args) {
     push(x, l, r);
     if (ll > r || l > rr)
       return;
