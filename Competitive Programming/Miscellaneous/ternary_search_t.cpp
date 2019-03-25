@@ -1,7 +1,5 @@
 class ternary_search_t {
 public:
-  // less    (return lhs < rhs)
-  // greater (return lhs > rhs)
   template <class Int, class C, class F, class... Args>
   pair<Int, Int> operator () (Int l, Int r, const C &cmp, const F &f, const Args&... args) {
     assert(l < r);
