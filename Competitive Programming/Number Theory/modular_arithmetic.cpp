@@ -1,3 +1,5 @@
+static constexpr int mod = 1e9 + 7;
+
 template <class T>
 inline T add(const T &a, const T &b) {
   return (a + b) < mod ? (a + b) : (a + b - mod);
