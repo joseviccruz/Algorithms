@@ -1,16 +1,22 @@
 class binary_search_t {
 public:
+  int eps;
+  int ll;
+  int rr;
+  
+  binary_search_t(int eps = 1, int ll = 1, int rr = 0) : eps(1), ll(1), rr(0) {
+  }
   // lower_bound (return  < ...)
   // upper_bound (return <= ...)
   template <class Int, class F, class... Args>
   Int operator () (Int l, Int r, const F &f, const Args&... args) {
     assert(l < r);
-    while (l < r) {
+    while (r - l > eps) {
       Int m = l + ((r - l) >> 1);
       if (f(m, args...))
-        l = m + 1;
+        l = m + ll;
       else
-        r = m;
+        r = m - rr;
     }
     return l;
   }
