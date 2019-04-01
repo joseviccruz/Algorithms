@@ -1,16 +1,23 @@
 class ternary_search_t {
 public:
+  int eps;
+  int ll;
+  int rr;
+  
+  ternary_search_t(int eps = 1, int ll = 0, int rr = 0) : eps(eps), ll(ll), rr(rr) {
+  }
+
   template <class Int, class C, class F, class... Args>
-  pair<Int, Int> operator () (Int l, Int r, const C &cmp, const F &f, const Args&... args) {
+  Int operator () (Int l, Int r, const C &cmp, const F &f, const Args&... args) {
     assert(l < r);
-    while (l + 1 < r) {
+    while (r - l > eps) {
       Int m = l + ((r - l) >> 1);
       if (cmp(f(m, args...), f(m + 1, args...)))
-        l = m;
+        l = m + ll;
       else
-        r = m;
+        r = m - rr;
     }
-    return make_pair(l, r);
+    return l;
   }
 
   template <class Float, class C, class F, class... Args>
