@@ -81,8 +81,10 @@ public:
     int z = lca(x, y);
     for (int id = 0; id < 2; id++) {
       int v = (id == 0 ? x : y);
-      for (; nxt[v] != nxt[z]; v = up[nxt[v]][0])
+      while (nxt[v] != nxt[z]) {
         path[id].emplace_back(in[nxt[v]], in[v]);
+        v = up[nxt[v]][0];
+      }
       if (in[z] + (!with_ancestor) <= in[v])
         path[id].emplace_back(in[z] + (!with_ancestor), in[v]);
     }
