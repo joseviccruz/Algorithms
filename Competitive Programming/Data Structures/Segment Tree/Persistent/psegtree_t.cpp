@@ -12,26 +12,26 @@ class psegtree_t {
   struct range_t { int l, r; };
   int n;
   int z;
-  vector<n_t> st;
+  vector<n_t> tree;
   vector<int> ptr;
   vector<range_t> v;
 
   void new_() {
-    st.emplace_back();
+    tree.emplace_back();
     v.emplace_back();
   }
 
   void build(int x, int l, int r) {
     new_();
     if (l == r)
-      st[x] = n_t();
+      tree[x] = n_t();
     else {
       int m = (l + r) / 2;
       v[x].l = z++;
       build(v[x].l, l, m);
       v[x].r = z++;
       build(v[x].r, m + 1, r);
-      st[x] = n_t(st[v[x].l], st[v[x].r]);
+      tree[x] = n_t(tree[v[x].l], tree[v[x].r]);
     }
   }
 
@@ -39,14 +39,14 @@ class psegtree_t {
   void build(int x, int l, int r, const vector<T> &base) {
     new_();
     if (l == r)
-      st[x] = n_t(base[l]);
+      tree[x] = n_t(base[l]);
     else {
       int m = (l + r) / 2;
       v[x].l = z++;
       build(v[x].l, l, m, base);
       v[x].r = z++;
       build(v[x].r, m + 1, r, base);
-      st[x] = n_t(st[v[x].l], st[v[x].r]);
+      tree[x] = n_t(tree[v[x].l], tree[v[x].r]);
     }
   }
 
@@ -54,18 +54,18 @@ class psegtree_t {
     if (l > rr || ll > r)
       return n_t();
     if (ll <= l && r <= rr)
-      return st[x];
+      return tree[x];
     int m = (l + r) / 2;
     return n_t(get(ll, rr, v[x].l, l, m), get(ll, rr, v[x].r, m + 1, r));
   }
   
   template <class... Args>
-  int modify(int p, int x, int l, int r, Args&&... args) {
+  int modify(int p, int x, int l, int r, Args&... args) {
     if (l > p || p > r)
       return x;
     new_();
     if (l == r) {
-      st[z] = n_t(args...);
+      tree[z] = n_t(args...);
       return z++;
     }
     int m = (l + r) / 2;
@@ -73,7 +73,7 @@ class psegtree_t {
     int nr = modify(p, v[x].r, m + 1, r, args...);
     v[z].l = nl;
     v[z].r = nr;
-    st[z] = n_t(st[v[z].l], st[v[z].r]);
+    tree[z] = n_t(tree[v[z].l], tree[v[z].r]);
     return z++;
   }
 
@@ -91,7 +91,7 @@ public:
   }
 
   template <class... Args>
-  int modify(int v, int p, Args&&... args) {
+  int modify(int v, int p, Args&... args) {
     assert(0 <= v && v < ptr.size());
     assert(0 <= p && p <= n - 1);
     ptr.push_back(modify(p, ptr[v], 0, n - 1, args...));
@@ -101,7 +101,7 @@ public:
   psegtree_t(int _n) : n(_n) {
     assert(n > 0);
     z = 1;
-    st.reserve(sz);
+    tree.reserve(sz);
     v.reserve(sz);
     build(0, 0, n - 1);
     ptr.assign(1, 0);
@@ -111,7 +111,7 @@ public:
   psegtree_t(const vector<T> &base) : n(base.size()) {
     assert(n > 0);
     z = 1;
-    st.reserve(sz);
+    tree.reserve(sz);
     v.reserve(sz);
     build(0, 0, n - 1, base);
     ptr.assign(1, 0);
