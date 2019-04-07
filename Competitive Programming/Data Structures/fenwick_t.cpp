@@ -7,13 +7,15 @@ struct node_t {
   }
 };
 
-template <typename T>
+template <class T>
 class fenwick_t {
   int n;
   vector<T> tree;
 
 public:
-  fenwick_t(int _n) : n(_n), tree(_n) {
+  fenwick_t(int n) : n(n) {
+    assert(n > 0);
+    tree.resize(n);
   }
   
   void modify(int x, T v) {
