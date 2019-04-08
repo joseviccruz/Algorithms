@@ -27,8 +27,9 @@ T lcm(T a, T b) {
   return a / gcd(a, b) * b;
 }
 
-// x = x0 + k * (b / g)
-// y = y0 + k * (a / g)
+// - x = x0 + k * (b / g)
+// - y = y0 + k * (a / g)
+// - can result in overflow
 template <class T>
 bool diophantine(T a, T b, T c, T &x, T &y, T &g) {
   if (a == 0 && b == 0) {
