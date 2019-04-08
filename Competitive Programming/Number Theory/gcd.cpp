@@ -71,8 +71,8 @@ bool diophantine(T a, T b, T c, T &x, T &y, T &g) {
 
 template <class T>
 bool crt(T k1, T m1, T k2, T m2, T &k, T &m) {
-  if (k1 %= m1 < 0) k1 += m1;
-  if (k2 %= m2 < 0) k2 += m2;
+  if ((k1 %= m1) < 0) k1 += m1;
+  if ((k2 %= m2) < 0) k2 += m2;
   T x, y, g;
   if (!diophantine(m1, -m2, k2 - k1, x, y, g))
     return false;
