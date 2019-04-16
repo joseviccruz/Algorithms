@@ -1,6 +1,6 @@
 template <class T>
 T gcd(T a, T b) {
-  while (a) {
+  while (a != 0) {
     b %= a;
     swap(a, b);
   }
