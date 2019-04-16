@@ -39,5 +39,5 @@ struct pt_t {
   
   friend pt_t cw90(pt_t p) { return (p.y, -p.x); }
   friend pt_t ccw90(pt_t p) { return (-p.y, p.x); }
-  friend pt_t<ld> ccw(pt_t p, ld t) { return pt_t<ld>(p.x * cos(t) - p.y * sin(t), p.x * sin(t) + p.y * cos(t)); }
+  friend pt_t<ld> ccw(pt_t p, ld t) { return pt_t<ld>(p.x * cos(t) - p.y * sin(t), p.x * sin(t) + p.y * cos(t), p.z); }
 };
