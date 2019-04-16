@@ -7,6 +7,10 @@ struct pt_t {
   pt_t(T x = 0.0, T y = 0.0, T z = 0.0) : x(x), y(y), z(z) {
   }
   
+  template <class U>
+  pt_t(const pt_t<U> &p) : x(p.x), y(p.y), z(p.z) {
+  }
+  
   pt_t &operator += (const pt_t &p) { x += p.x, y += p.y, z += p.z; return *this; }
   pt_t &operator -= (const pt_t &p) { x -= p.x, y -= p.y, z -= p.z; return *this; }
   pt_t &operator *= (T t) { x *= t, y *= t, z *= t; return *this; }
