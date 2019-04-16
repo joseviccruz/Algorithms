@@ -32,5 +32,4 @@ FPointParam(resize, p / norm(p) * t);
 #undef Type
 #undef FPoint
 #undef F2Points
-#undef F3Points
 #undef FPointParam
