@@ -33,6 +33,7 @@ struct pt_t {
   friend T cross(pt_t p, pt_t q) { return p.x * q.y - p.y * q.x; }
   friend T triple(pt_t p, pt_t q, pt_t r) { return dot(p, cross(q, r)); }
   
+  friend ld dist(pt_t p, pt_t q) { return sqrt((ld) dist2(p, q)); }
   friend ld abs(pt_t p) { return sqrt((ld) norm(p)); }
   friend ld proj(pt_t p, pt_t q) { return dot(p, q) / abs(q); }
   friend ld angle(pt_t p, pt_t q) { return acos((ld) dot(p, q) / abs(p) / abs(q)); }
