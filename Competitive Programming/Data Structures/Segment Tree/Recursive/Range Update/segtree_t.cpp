@@ -22,9 +22,9 @@ struct lazy_t {
   void reset() {
   }
 
-  const int x, l, r;
+  const int l, r;
   
-  lazy_t(int x = 0, int l = 0, int r = 0) : x(x), l(l), r(r) {
+  lazy_t(int l = 0, int r = 0) : l(l), r(r) {
     assign();
   }
 };
@@ -37,7 +37,7 @@ class segtree_t {
   vector<bool> dirty;
 
   void build(int x, int l, int r) {
-    lazy.emplace_back(x, l, r);
+    lazy.emplace_back(l, r);
     if (l == r)
       return;
     int m = (l + r) >> 1;
@@ -49,7 +49,7 @@ class segtree_t {
 
   template <class v_t>
   void build(int x, int l, int r, const v_t &base) {
-    lazy.emplace_back(x, l, r);
+    lazy.emplace_back(l, r);
     if (l == r) {
       tree[x] = n_t(base[l]);
       return;
