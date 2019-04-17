@@ -18,7 +18,7 @@ class segtree_t {
   }
 
 public:
-  segtree_t(int _n) : n(_n), tree(_n + _n) {
+  segtree_t(int n) : n(n), tree(n << 1) {
     assert(n > 0);
     build();
   }
