@@ -7,6 +7,7 @@ public:
   static constexpr int m = M;
 
   inline array<T, m> &operator [] (const size_t &x) {
+    assert(0 <= x && x <= m);
     return mat[x];
   }
 
@@ -14,16 +15,13 @@ public:
   }
 
   matrix_t(const initializer_list<T> &il) {
-    int i = 0;
     auto ptr = il.begin();
-    while (ptr != il.end() && i < n * m) {
-      mat[i / m][i % m] = *ptr;
-      ptr++;
-      i++;
-    }
-    while (i < n * m) {
-      mat[i / m][i % m] = {};
-      i++;
+    for (int i = 0; i < n * m; i++) {
+      if (ptr != il.end()) {
+        mat[i / m][i % m] = *ptr;
+        ptr++;
+      } else
+        mat[i / m][i % m] = {};
     }
   }
 
