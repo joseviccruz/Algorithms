@@ -23,8 +23,8 @@ public:
     build();
   }
   
-  template <class T>
-  segtree_t(const vector<T> &base) : n(base.size()), tree(base.size()) {
+  template <class v_t>
+  segtree_t(const v_t &base) : n(base.size()), tree(base.size()) {
     assert(n > 0);
     copy(base.begin(), base.end(), back_inserter(tree));
     build();
