@@ -6,8 +6,8 @@ struct node_t {
   node_t(const node_t &lhs, const node_t &rhs) {
   }
 };
- 
-template <class n_t, size_t sz = 0>
+
+template <class n_t>
 class psegtree_t {
   struct range_t { int l, r; };
   int n;
@@ -19,20 +19,6 @@ class psegtree_t {
   void new_() {
     tree.emplace_back();
     v.emplace_back();
-  }
-
-  void build(int x, int l, int r) {
-    new_();
-    if (l == r)
-      tree[x] = n_t();
-    else {
-      int m = (l + r) / 2;
-      v[x].l = z++;
-      build(v[x].l, l, m);
-      v[x].r = z++;
-      build(v[x].r, m + 1, r);
-      tree[x] = n_t(tree[v[x].l], tree[v[x].r]);
-    }
   }
 
   template <class T>
@@ -83,12 +69,6 @@ public:
     assert(0 <= ll && ll <= rr && rr <= n - 1);
     return get(ll, rr, ptr[v], 0, n - 1);
   }
-  
-  n_t get(int v, int p) {
-    assert(0 <= v && v < ptr.size());
-    assert(0 <= p && p <= n - 1);
-    return get(p, p, ptr[v], 0, n - 1);
-  }
 
   template <class... Args>
   int modify(int v, int p, Args&... args) {
@@ -98,22 +78,16 @@ public:
     return ptr.back();
   }
 
-  psegtree_t(int _n) : n(_n) {
-    assert(n > 0);
-    z = 1;
-    tree.reserve(sz);
-    v.reserve(sz);
-    build(0, 0, n - 1);
-    ptr.assign(1, 0);
-  }
-
   template <class T>
-  psegtree_t(const vector<T> &base) : n(base.size()) {
-    assert(n > 0);
+  psegtree_t(const vector<T> &base, int m = 0) : n(base.size()) {
+    assert(m >= 0);
     z = 1;
-    tree.reserve(sz);
-    v.reserve(sz);
+    tree.reserve(m);
+    v.reserve(m);
     build(0, 0, n - 1, base);
     ptr.assign(1, 0);
+  }
+  
+  psegtree_t(int n, int m = 0) : psegtree_t(vector<n_t>(n), m) {
   }
 };
