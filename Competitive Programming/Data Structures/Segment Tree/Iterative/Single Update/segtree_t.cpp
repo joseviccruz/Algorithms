@@ -18,18 +18,6 @@ class segtree_t {
   }
 
 public:
-  segtree_t(int n) : n(n), tree(n << 1) {
-    assert(n > 0);
-    build();
-  }
-  
-  template <class v_t>
-  segtree_t(const v_t &base) : n(base.size()), tree(base.size()) {
-    assert(n > 0);
-    copy(base.begin(), base.end(), back_inserter(tree));
-    build();
-  }
-
   template <class... Args>
   void modify(int x, Args&&... args) {
     assert(x >= 0 && x <= n - 1);
@@ -49,8 +37,12 @@ public:
     return n_t(lhs, rhs);
   }
   
-  n_t get(int x) {
-    assert(x >= 0 && x <= n - 1);
-    return tree[x + n];
+  template <class v_t>
+  segtree_t(const v_t &base) : n(base.size()), tree(base.size()) {
+    copy(base.begin(), base.end(), back_inserter(tree));
+    build();
+  }
+  
+  segtree_t(int n) : segtree_t(vector<n_t>(n)) {
   }
 };
