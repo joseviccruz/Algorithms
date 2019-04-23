@@ -22,7 +22,7 @@ struct lazy_t {
   void reset() {
   }
 
-  const int l, r;
+  int l, r;
   
   lazy_t(int l = 0, int r = 0) : l(l), r(r) {
     assign();
@@ -35,17 +35,6 @@ class segtree_t {
   vector<n_t> tree;
   vector<l_t> lazy;
   vector<bool> dirty;
-
-  void build(int x, int l, int r) {
-    lazy.emplace_back(l, r);
-    if (l == r)
-      return;
-    int m = (l + r) >> 1;
-    int z = x + ((m - l + 1) << 1);
-    build(x + 1, l, m);
-    build(z, m + 1, r);
-    tree[x] = n_t(tree[x + 1], tree[z]);
-  }
 
   template <class v_t>
   void build(int x, int l, int r, const v_t &base) {
@@ -112,31 +101,20 @@ public:
     return get(ll, rr, 0, 0, n - 1);
   }
 
-  n_t get(int p) {
-    assert(0 <= p && p <= n - 1);
-    return get(p, p, 0, 0, n - 1);
-  }
-
   template <class... Args>
   void modify(int ll, int rr, const Args&... args) {
     assert(0 <= ll && ll <= rr && rr <= n - 1);
     modify(ll, rr, 0, 0, n - 1, args...);
   }
 
-  segtree_t(int _n) : n(_n) {
-    assert(n > 0);
-    tree.resize((n << 1) - 1);
-    lazy.reserve((n << 1) - 1);
-    dirty.resize((n << 1) - 1);
-    build(0, 0, n - 1);
-  }
-
   template <class v_t>
   segtree_t(const v_t &base) : n(base.size()) {
-    assert(n > 0);
     tree.resize((n << 1) - 1);
     lazy.reserve((n << 1) - 1);
     dirty.resize((n << 1) - 1);
     build(0, 0, n - 1, base);
+  }
+  
+  segtree_t(int n) : segtree_t(vector<n_t>(n)) {
   }
 };
