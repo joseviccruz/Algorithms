@@ -13,19 +13,13 @@ struct node_t {
 
 struct lazy_t {
   
-  void assign() {
+  lazy_t() {
   }
-
+  
   void operator += (const lazy_t &o) {
   }
 
   void reset() {
-  }
-
-  int l, r;
-  
-  lazy_t(int l = 0, int r = 0) : l(l), r(r) {
-    assign();
   }
 };
 
@@ -38,16 +32,15 @@ class segtree_t {
 
   template <class v_t>
   void build(int x, int l, int r, const v_t &base) {
-    lazy.emplace_back(l, r);
-    if (l == r) {
+    if (l == r)
       tree[x] = n_t(base[l]);
-      return;
+    else {
+      int m = (l + r) >> 1;
+      int z = x + ((m - l + 1) << 1);
+      build(x + 1, l, m, base);
+      build(z, m + 1, r, base);
+      tree[x] = n_t(tree[x + 1], tree[z]);
     }
-    int m = (l + r) >> 1;
-    int z = x + ((m - l + 1) << 1);
-    build(x + 1, l, m, base);
-    build(z, m + 1, r, base);
-    tree[x] = n_t(tree[x + 1], tree[z]);
   }
 
   void push(int x, int l, int r) {
@@ -68,13 +61,18 @@ class segtree_t {
 
   n_t get(int ll, int rr, int x, int l, int r) {
     push(x, l, r);
-    if (ll > r || l > rr)
-      return n_t();
     if (ll <= l && r <= rr)
       return tree[x];
     int m = (l + r) >> 1;
     int z = x + ((m - l + 1) << 1);
-    return n_t(get(ll, rr, x + 1, l, m), get(ll, rr, z, m + 1, r));
+    n_t ans{};
+    if (rr <= m)
+      ans = get(ll, rr, x + 1, l, m);
+    else if (ll > m)
+      ans = get(ll, rr, z, m + 1, r);
+    else
+      ans = n_t(get(ll, rr, x + 1, l, m), get(ll, rr, z, m + 1, r));
+    return ans;
   }
 
   template <class... Args>
@@ -83,7 +81,7 @@ class segtree_t {
     if (ll > r || l > rr)
       return;
     if (ll <= l && r <= rr) {
-      lazy[x].assign(args...);
+      lazy[x] = l_t(args...);
       dirty[x] = true;
       push(x, l, r);
       return;
@@ -110,7 +108,7 @@ public:
   template <class v_t>
   segtree_t(const v_t &base) : n(base.size()) {
     tree.resize((n << 1) - 1);
-    lazy.reserve((n << 1) - 1);
+    lazy.resize((n << 1) - 1);
     dirty.resize((n << 1) - 1);
     build(0, 0, n - 1, base);
   }
