@@ -81,7 +81,7 @@ class segtree_t {
     if (ll > r || l > rr)
       return;
     if (ll <= l && r <= rr) {
-      lazy[x] = l_t(args...);
+      lazy[x] += l_t(args...);
       dirty[x] = true;
       push(x, l, r);
       return;
