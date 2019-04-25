@@ -1,4 +1,3 @@
-
 struct node_t {
   
   node_t() {
