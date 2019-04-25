@@ -63,7 +63,7 @@ public:
 
   template <class... Args>
   void modify(int x, const Args&... args) {
-    assert(0 <= x <= n - 1);
+    assert(0 <= x && x <= n - 1);
     modify(x, 0, 0, n - 1, args...);
   }
 
