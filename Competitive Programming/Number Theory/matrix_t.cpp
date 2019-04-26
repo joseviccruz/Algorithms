@@ -3,6 +3,8 @@ class matrix_t {
   array<array<T, m>, n> mat;
 
 public:
+  inline array<T, m> &operator [] (int x) { return mat[x]; }
+
   matrix_t() : mat({}) {
   }
 
@@ -15,11 +17,6 @@ public:
       } else
         mat[i / m][i % m] = {};
     }
-  }
-
-  inline array<T, m> &operator [] (const size_t &x) {
-    assert(0 <= x && x <= m);
-    return mat[x];
   }
 
   template <int o>
