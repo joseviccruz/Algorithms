@@ -21,8 +21,7 @@ struct pt_t {
   pt_t operator * (T t) const { return pt_t(*this) *= t; }
   pt_t operator / (T t) const { return pt_t(*this) /= t; }
   
-  friend pt_t operator * (T a, pt_t b) { return b * a; }
-  friend pt_t operator / (T a, pt_t b) { return b / a; }
+  friend pt_t operator * (T a, const pt_t &b) { return b * a; }
   friend pt_t crossR3(pt_t p, pt_t q) { return pt_t(p.y * q.z - p.z * q.y,
                                                     p.z * q.x - p.x * q.z,
                                                     p.x * q.y - p.y * q.x); }
