@@ -16,7 +16,7 @@ struct pt_t {
   pt_t operator * (T t) const { return pt_t(x * t, y * t); }
   pt_t operator / (T t) const { return pt_t(x / t, y / t); }
   
-  friend pt_t operator * (T a, const &pt_t b) { return b * a; }
+  friend pt_t operator * (T t, const pt_t &p) { return p * t; }
   
   friend T dot(pt_t p, pt_t q) { return p.x * q.x + p.y * q.y; }
   friend T dist2(pt_t p, pt_t q) { return dot(p - q, p - q); }
