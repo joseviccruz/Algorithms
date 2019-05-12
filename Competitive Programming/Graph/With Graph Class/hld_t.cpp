@@ -1,12 +1,12 @@
-template <class T>
+template <class Graph>
 class hld_t {
 public:
-  graph_t<T> &g;
+  Graph &g;
   int max_log;
   vector<vector<int>> up;
   vector<int> in, rin, out, nxt;
   
-  hld_t(graph_t<T> &_g) : g(_g) {
+  hld_t(Graph &_g) : g(_g) {
     max_log = 0;
     while ((1 << max_log) <= g.n)
       max_log++;
