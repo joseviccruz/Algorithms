@@ -1,14 +1,23 @@
+/*
+int n;
+struct edge_t {
+  int to;
+  T w;
+};
+vector<vector<edge_t>> adj;
+*/
+
 template <class T>
 class graph_t {
 public:
-  struct data_t {
+  int n;
+  struct edge_t {
     int to;
     T w;
   };
-  int n;
+  vector<vector<edge_t>> adj;
   bool directed;
-  vector<vector<data_t>> adj;
-  
+
   graph_t(int n, bool d = false) : n(n), directed(d) {
     assert(n > 0);
     adj.resize(n);
