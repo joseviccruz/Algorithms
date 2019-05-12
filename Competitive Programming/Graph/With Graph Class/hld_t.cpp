@@ -1,12 +1,12 @@
-template <class Graph>
+template <class T>
 class hld_t {
 public:
-  Graph &g;
+  graph_t<T> &g;
   int max_log;
   vector<vector<int>> up;
   vector<int> in, rin, out, nxt;
-  
-  hld_t(Graph &_g) : g(_g) {
+
+  hld_t(graph_t<T> &_g) : g(_g) {
     max_log = 0;
     while ((1 << max_log) <= g.n)
       max_log++;
@@ -16,7 +16,7 @@ public:
     nxt.resize(g.n);
     up.resize(g.n, vector<int>(max_log));
   }
-  
+
   bool anc(int x, int y) {
     return in[x] <= in[y] && out[x] >= out[y];
   }
