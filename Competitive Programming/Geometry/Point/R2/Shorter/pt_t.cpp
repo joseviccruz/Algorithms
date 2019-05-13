@@ -20,7 +20,6 @@ struct pt_t {
   
   friend T dot(pt_t p, pt_t q) { return p.x * q.x + p.y * q.y; }
   friend T dist2(pt_t p, pt_t q) { return dot(p - q, p - q); }
-  friend T norm(pt_t p) { return dot(p, p); }
   friend T cross(pt_t p, pt_t q) { return p.x * q.y - p.y * q.x; }
   
   friend ld dist(pt_t p, pt_t q) { return sqrt((ld) dist2(p, q)); }
