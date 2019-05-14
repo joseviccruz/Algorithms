@@ -32,10 +32,10 @@ struct pt_t {
   friend pt_t operator * (T t, const pt_t &p) { return p * t; }
   
   friend T dot(pt_t p, pt_t q) { return p.x * q.x + p.y * q.y; }
-  friend T dist_sqr(pt_t p, pt_t q) { return dot(p - q, p - q); }
+  friend T distSqr(pt_t p, pt_t q) { return dot(p - q, p - q); }
   friend T cross(pt_t p, pt_t q) { return p.x * q.y - p.y * q.x; }
   
-  friend ld dist(pt_t p, pt_t q) { return sqrt((ld) dist_sqr(p, q)); }
+  friend ld dist(pt_t p, pt_t q) { return sqrt((ld) distSqr(p, q)); }
   friend ld abs(pt_t p) { return sqrt((ld) norm(p)); }
   friend ld proj(pt_t p, pt_t q) { return dot(p, q) / abs(q); }
   friend ld angle(pt_t p, pt_t q) { return atan2((ld) cross(p, q), (ld) dot(p, q)); }
