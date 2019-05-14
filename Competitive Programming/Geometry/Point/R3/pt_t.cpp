@@ -41,6 +41,20 @@ struct pt_t {
   friend pt_t<ld> ccw(pt_t p, ld t) { return pt_t<ld>(p.x * cos(t) - p.y * sin(t), p.x * sin(t) + p.y * cos(t), p.z); }
 };
 
+static constexpr ld PI = acos(-1.0l);
+static constexpr ld eps = 1e-6;
+
+enum Cmp { Less = -1, Equal, Greater };
+
+template <class T>
+int cmp(T lhs, T rhs = 0) {
+  if (abs(rhs - lhs) < eps)
+    return Equal;
+  if (rhs < lhs)
+    return Less;
+  return Greater;
+}
+
 /*
 3D Rotation:
 around the Z-axis would be:
