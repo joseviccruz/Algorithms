@@ -1,3 +1,5 @@
+// Warning: Take care with integer overflow
+
 // Some functions requires floating point
 using PT = pt_t<ld>;
 
@@ -87,11 +89,11 @@ bool linesParallel(pt_t<T> a, pt_t<T> b, pt_t<T> c, pt_t<T> d) {
 // Determine if lines from a to b and c to d are collinear;
 template <class T>
 bool linesCollinear(pt_t<T> a, pt_t<T> b, pt_t<T> c, pt_t<T> d) {
-	if (not linesParallel(a, b, c, d))
-	  return false;
-	if (not cmp(abs(cross(a - b, a - c)), eq, 0) or not cmp(abs(cross(c - d, c - a)), eq, 0))
-	  return false;
-	return true;
+  if (not linesParallel(a, b, c, d))
+    return false;
+  if (not cmp(abs(cross(a - b, a - c)), eq, 0) or not cmp(abs(cross(c - d, c - a)), eq, 0))
+    return false;
+  return true;
 }
 
 // Determine if line segment from A to B intersects with line segment from C to D
@@ -103,8 +105,8 @@ bool segmentsIntersect(pt_t<T> a, pt_t<T> b, pt_t<T> c, pt_t<T> d) {
     return false;
   if (cmp(cross(d - a, b - a) * cross(c - a, b - a), gt, 0))
     return false;
-	if (cmp(cross(a - c, d - c) * cross(b - c, d - c), gt, 0))
-	  return false;
+  if (cmp(cross(a - c, d - c) * cross(b - c, d - c), gt, 0))
+    return false;
   return true;
 }
 
@@ -114,9 +116,9 @@ bool segmentsIntersect(pt_t<T> a, pt_t<T> b, pt_t<T> c, pt_t<T> d) {
  * intersection exists
  */
 PT computeLineIntersection(PT a, PT b, PT c, PT d) {
-	b = b - a, d = c - d, c = c - a;
-	assert(cmp(dot(b, b), gt, 0) and cmp(dot(d, d), gt, 0));
-	return a + b * cross(c, d) / cross(b, d);
+  b = b - a, d = c - d, c = c - a;
+  assert(cmp(dot(b, b), gt, 0) and cmp(dot(d, d), gt, 0));
+  return a + b * cross(c, d) / cross(b, d);
 }
 
 /*
@@ -146,15 +148,15 @@ ld circleCircleIntersectionAngle(ld r1, ld r2, ld d) {
 
 // Compute intersection of circle centered at a with radius r with circle centered at b with radius R
 vector<PT> circleCircleIntersection(PT p, ld r1, PT q, ld r2) {
-	ld d = dist(p, q);
-	if (cmp(d, gt, r1 + r2) or cmp(d + min(r1, r2), lt, max(r1, r2)))
-	  return vector<PT>();
-	ld x = (d * d - r2 * r2 + r1 * r1) / (2 * d);
-	ld y = sqrt(r1 * r1 - x * x);
-	PT v = (q - p) / d;
-	vector<PT> ret;
-	ret.push_back(p + v * x + ccw90(v) * y);
-	if (cmp(y, gt, 0))
-	  ret.push_back(p + v * x - ccw90(v) * y);
-	return ret;
+  ld d = dist(p, q);
+  if (cmp(d, gt, r1 + r2) or cmp(d + min(r1, r2), lt, max(r1, r2)))
+    return vector<PT>();
+  ld x = (d * d - r2 * r2 + r1 * r1) / (2 * d);
+  ld y = sqrt(r1 * r1 - x * x);
+  PT v = (q - p) / d;
+  vector<PT> ret;
+  ret.push_back(p + v * x + ccw90(v) * y);
+  if (cmp(y, gt, 0))
+    ret.push_back(p + v * x - ccw90(v) * y);
+  return ret;
 }
