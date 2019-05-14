@@ -116,6 +116,7 @@ bool segmentsIntersect(pt_t<T> a, pt_t<T> b, pt_t<T> c, pt_t<T> d) {
  * intersection exists
  */
 PT computeLineIntersection(PT a, PT b, PT c, PT d) {
+  assert(not linesParallel(a, b, c, d));
   b = b - a, d = c - d, c = c - a;
   assert(cmp(dot(b, b), gt, 0) and cmp(dot(d, d), gt, 0));
   return a + b * cross(c, d) / cross(b, d);
@@ -137,7 +138,8 @@ PT computeCircleCenter(PT a, PT b, PT c) {
   return computeLineIntersection(b, b + cw90(a - b), c, c + cw90(a - c));
 }
 
-/* Compute the arc degree of circle with radius r1
+/* 
+ * Compute the arc degree of circle with radius r1
  * intersected with circle with radius r2 and with
  * distance between them equals to d
  */
