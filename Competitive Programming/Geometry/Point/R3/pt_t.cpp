@@ -1,5 +1,18 @@
 using ld = long double;
 
+static constexpr ld PI = acos(-1.0l);
+static constexpr ld eps = 1e-6;
+
+enum { lt = -1, eq, gt };
+
+inline int sign(const ld &x) {
+  return (abs(x) < eps) ? eq : (x > 0) ? gt : lt;
+}
+
+bool cmp(ld lhs, int op, ld rhs) {
+  return sign(lhs - rhs) == op;
+}
+
 template <class T>
 struct pt_t {
   T x, y, z;
@@ -27,11 +40,11 @@ struct pt_t {
                                                     p.x * q.y - p.y * q.x); }
   
   friend T dot(pt_t p, pt_t q) { return p.x * q.x + p.y * q.y + p.z * q.z; }
-  friend T dist2(pt_t p, pt_t q) { return dot(p - q, p - q); }
+  friend T distSqr(pt_t p, pt_t q) { return dot(p - q, p - q); }
   friend T cross(pt_t p, pt_t q) { return p.x * q.y - p.y * q.x; }
   friend T triple(pt_t p, pt_t q, pt_t r) { return dot(p, cross(q, r)); }
   
-  friend ld dist(pt_t p, pt_t q) { return sqrt((ld) dist2(p, q)); }
+  friend ld dist(pt_t p, pt_t q) { return sqrt((ld) distSqr(p, q)); }
   friend ld abs(pt_t p) { return sqrt((ld) norm(p)); }
   friend ld proj(pt_t p, pt_t q) { return dot(p, q) / abs(q); }
   friend ld angle(pt_t p, pt_t q) { return atan2((ld) cross(p, q), (ld) dot(p, q)); }
@@ -40,20 +53,6 @@ struct pt_t {
   friend pt_t ccw90(pt_t p) { return pt_t(-p.y, p.x, p.z); }
   friend pt_t<ld> ccw(pt_t p, ld t) { return pt_t<ld>(p.x * cos(t) - p.y * sin(t), p.x * sin(t) + p.y * cos(t), p.z); }
 };
-
-static constexpr ld PI = acos(-1.0l);
-static constexpr ld eps = 1e-6;
-
-enum Cmp { Less = -1, Equal, Greater };
-
-template <class T>
-int cmp(T lhs, T rhs = 0) {
-  if (abs(rhs - lhs) < eps)
-    return Equal;
-  if (rhs < lhs)
-    return Less;
-  return Greater;
-}
 
 /*
 3D Rotation:
