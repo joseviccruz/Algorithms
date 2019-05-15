@@ -1,4 +1,4 @@
-struct dsu_t {
+class dsu_t {
   int n;
   vector<int> cnj;
 
