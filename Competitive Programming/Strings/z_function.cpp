@@ -1,5 +1,5 @@
 template <class T>
-vector<int> z_function(int n, const T &s) {
+vector<int> z_function(const T &s, int n) {
   vector<int> z(n);
   for (int i = 1, l = 0, r = 0; i < n; i++) {
     z[i] = (i > r) ? 0 : min(r - i + 1, z[i - l]);
@@ -15,5 +15,5 @@ vector<int> z_function(int n, const T &s) {
 
 template <class T>
 vector<int> z_function(const T &s) {
-  return z_function(s.size(), s);
+  return z_function(s, s.size());
 }
