@@ -1,5 +1,5 @@
 template <class T>
-vector<int> kmp_table(int n, const T &s) {
+vector<int> kmp_table(const T &s, int n) {
   vector<int> p(n);
   for (int i = 1, j = 0; i < n; i++) {
     while (j > 0 && s[i] != s[j])
@@ -12,11 +12,11 @@ vector<int> kmp_table(int n, const T &s) {
 
 template <class T>
 vector<int> kmp_table(const T &s) {
-  return kmp_table(s.size(), s);
+  return kmp_table(s, s.size());
 }
 
 template <class T>
-vector<int> kmp_search(int n, const T &s, int m, const T &u, const vector<int> &p) {
+vector<int> kmp_search(const T &s, int n, const T &u, int m, const vector<int> &p) {
   assert(m >= 1 && m == p.size());
   vector<int> ans;
   for (int i = 0, j = 0; i < n; i++) {
@@ -31,5 +31,5 @@ vector<int> kmp_search(int n, const T &s, int m, const T &u, const vector<int> &
 
 template <class T>
 vector<int> kmp_search(const T &s, const T &u) {
-  return kmp_search(s.size(), s, u.size(), u, kmp_table(u));
+  return kmp_search(s, s.size(), u, u.size(), kmp_table(u));
 }
