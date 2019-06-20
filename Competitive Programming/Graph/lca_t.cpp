@@ -1,9 +1,15 @@
+template <class T>
 class lca_t {
 public:
+  struct edge_t {
+    int to;
+    T w;
+  };
   int n;
   int max_log;
   vector<int> h, in, out;
-  vector<vector<int>> adj, up;
+  vector<vector<int>> up;
+  vector<vector<edge_t>> adj;
 
   lca_t(int _n) : n(_n) {
     max_log = 0;
@@ -31,9 +37,9 @@ public:
     return up[x][0];
   }
 
-  void add(int x, int y) {
-    adj[x].push_back(y);
-    adj[y].push_back(x);
+  void add(int x, int y, T w = 1) {
+    adj[x].push_back({y, w});
+    adj[y].push_back({x, w});
   }
 
   void set_root(int x) {
@@ -45,7 +51,7 @@ public:
       for (int i = 1; i < max_log; i++)
         up[v][i] = up[up[v][i - 1]][i - 1];
       for (int i = 0; i < (int) adj[v].size(); i++) {
-        int u = adj[v][i];
+        int u = adj[v][i].to;
         if (u == p)
           continue;
         h[u] = h[v] + 1;
