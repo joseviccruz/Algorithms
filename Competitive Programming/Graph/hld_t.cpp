@@ -1,8 +1,14 @@
+template <class T>
 class hld_t {
 public:
+  struct edge_t {
+    int to;
+    T w;
+  };
   int n;
   int max_log;
-  vector<vector<int>> adj, up;
+  vector<vector<int>> up;
+  vector<vector<edge_t>> adj;
   vector<int> in, rin, out, nxt;
   
   hld_t(int _n) : n(_n) {
@@ -33,10 +39,10 @@ public:
     return up[x][0];
   }
   
-  void add(int x, int y) {
+  void add(int x, int y, T w = 1) {
     assert(0 <= x && x <= n - 1 && 0 <= y && y <= n - 1);
-    adj[x].push_back(y);
-    adj[y].push_back(x);
+    adj[x].push_back({y, w});
+    adj[y].push_back({x, w});
   }
 
   void set_root(int x) {
@@ -45,8 +51,8 @@ public:
     function<void(int, int)> dfs_sz = [&](int v, int p) {
       sz[v] = 1;
       for (int i = 0; i < (int) adj[v].size(); i++) {
-        int u = adj[v][i];
-        int a = adj[v][0];
+        int u = adj[v][i].to;
+        int a = adj[v][0].to;
         if (u == p)
           continue;
         dfs_sz(u, v);
@@ -64,7 +70,7 @@ public:
       for (int i = 1; i < max_log; i++)
         up[v][i] = up[up[v][i - 1]][i - 1];
       for (int i = 0; i < (int) adj[v].size(); i++) {
-        int u = adj[v][i];
+        int u = adj[v][i].to;
         if (u == p)
           continue;
         nxt[u] = (i == 0) ? nxt[v] : u;
