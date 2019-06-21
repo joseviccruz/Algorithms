@@ -1,0 +1,131 @@
+// if (can_break() == false and can_apply() == true)
+//   // turn into a standard segment tree
+
+struct node_t {
+  
+  node_t() {
+  }
+
+  node_t(const node_t &lhs, const node_t &rhs) {
+  }
+
+  template <class l_t>
+  bool can_break(const l_t &lazy) {
+  }
+  
+  template <class l_t>
+  bool can_apply(const l_t &lazy) {
+  }
+
+  template <class l_t>
+  void apply(const l_t &lazy) {
+  }
+};
+
+struct lazy_t {
+  
+  lazy_t() {
+  }
+  
+  void operator += (const lazy_t &o) {
+  }
+
+  void reset() {
+  }
+};
+
+template <class n_t, class l_t>
+class segtree_t {
+  int n;
+  vector<n_t> tree;
+  vector<l_t> lazy;
+  vector<bool> dirty;
+
+  template <class v_t>
+  void build(int x, int l, int r, const v_t &base) {
+    if (l == r)
+      tree[x] = n_t(base[l]);
+    else {
+      int m = (l + r) >> 1;
+      int z = x + ((m - l + 1) << 1);
+      build(x + 1, l, m, base);
+      build(z, m + 1, r, base);
+      tree[x] = n_t(tree[x + 1], tree[z]);
+    }
+  }
+
+  void push(int x, int l, int r) {
+    if (dirty[x]) {
+      tree[x].apply(lazy[x]);
+      int m = (l + r) >> 1;
+      int z = x + ((m - l + 1) << 1);
+      if (l != r) {
+        lazy[x + 1] += lazy[x];
+        lazy[z] += lazy[x];
+        dirty[x + 1] = true;
+        dirty[z] = true;
+      }
+      lazy[x].reset();
+      dirty[x] = false;
+    }
+  }
+
+  n_t get(int ll, int rr, int x, int l, int r) {
+    push(x, l, r);
+    if (ll <= l && r <= rr)
+      return tree[x];
+    int m = (l + r) >> 1;
+    int z = x + ((m - l + 1) << 1);
+    n_t ans{};
+    if (rr <= m)
+      ans = get(ll, rr, x + 1, l, m);
+    else if (ll > m)
+      ans = get(ll, rr, z, m + 1, r);
+    else
+      ans = n_t(get(ll, rr, x + 1, l, m), get(ll, rr, z, m + 1, r));
+    return ans;
+  }
+
+  template <class... Args>
+  void modify(int ll, int rr, int x, int l, int r, const Args&... args) {
+    push(x, l, r);
+    if (ll > r || l > rr || tree[x].can_break(l_t(args...)))
+      return;
+    if (ll <= l && r <= rr) {
+      if (tree[x].can_apply(l_t(args...))) {
+        lazy[x] += l_t(args...);
+        dirty[x] = true;
+        push(x, l, r);
+        return;
+      }
+    }
+    int m = (l + r) >> 1;
+    int z = x + ((m - l + 1) << 1);
+    modify(ll, rr, x + 1, l, m, args...);
+    modify(ll, rr, z, m + 1, r, args...);
+    tree[x] = n_t(tree[x + 1], tree[z]);
+  }
+
+public:
+  n_t get(int ll, int rr) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    return get(ll, rr, 0, 0, n - 1);
+  }
+
+  template <class... Args>
+  void modify(int ll, int rr, const Args&... args) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    modify(ll, rr, 0, 0, n - 1, args...);
+  }
+
+  template <class v_t>
+  segtree_t(const v_t &base) : n(base.size()) {
+    tree.resize((n << 1) - 1);
+    lazy.resize((n << 1) - 1);
+    dirty.resize((n << 1) - 1);
+    build(0, 0, n - 1, base);
+  }
+  
+  segtree_t(int n) : segtree_t(vector<n_t>(n)) {
+  }
+};
