@@ -28,7 +28,7 @@ void radix_sort(RandomIt first, RandomIt last) {
 
   using type_t = typename decay<decltype(*first)>::type;
 
-  for (llu amount : shift) {
+  for (const llu &amount : shift) {
     memset(bucket, 0, sizeof bucket);
     ptr = first;
     for (int i = 0; i < n; i++)
