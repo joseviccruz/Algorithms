@@ -23,8 +23,8 @@ void radix_sort(RandomIt first, RandomIt last) {
   static const vector<llu> shift = {0x0, 0x10, 0x20, 0x30};
 
   int n = distance(first, last);
-  v.resize(max(v.size(), (size_t) n));
-  tmp.resize(max(tmp.size(), (size_t) n));
+  v.resize(max(v.size(), static_cast<size_t>(n)));
+  tmp.resize(max(tmp.size(), static_cast<size_t>(n)));
 
   using type_t = typename decay<decltype(*first)>::type;
 
