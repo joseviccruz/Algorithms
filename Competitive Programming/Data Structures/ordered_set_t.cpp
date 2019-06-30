@@ -3,7 +3,7 @@
 using namespace __gnu_pbds;
 
 template <class Key, class T = null_type, class Compare = less<Key>>
-using ordered_t = tree<Key, T, Compare, rb_tree_tag, tree_order_statistics_node_update>;
+using ordered_set_t = tree<Key, T, Compare, rb_tree_tag, tree_order_statistics_node_update>;
 
 /**
  * ordered_map_t == ordered_t<Key, T>;
