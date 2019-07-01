@@ -9,7 +9,6 @@ struct node_t {
   }
 };
 
-
 template <class T, class d_t>
 class treap_t {
   struct n_t {
