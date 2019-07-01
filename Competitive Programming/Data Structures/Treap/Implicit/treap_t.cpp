@@ -12,7 +12,7 @@ struct node_t {
 template <class T, class d_t>
 class treap_t {
   struct n_t {
-    int p;
+    unsigned p;
     T key;
     int size;
     bool rev;
@@ -20,7 +20,7 @@ class treap_t {
     n_t *l, *r;
     template <class... Args>
     n_t(const Args&... args)
-    : p(uniform_int_distribution<int>()(rng)), key(args...),
+    : p(rng()), key(args...),
       size(1), rev(false), data(key), l(nullptr), r(nullptr) {
     }
   };
