@@ -21,8 +21,8 @@ class treap_t {
     n_t *l, *r;
     template <class... Args>
     n_t(const Args&... args)
-    : p(uniform_int_distribution<int>()(rng)), key(args...), size(1),
-      rev(false), data(key), l(nullptr), r(nullptr) {
+    : p(uniform_int_distribution<unsigned>()(rng)), key(args...),
+      size(1), rev(false), data(key), l(nullptr), r(nullptr) {
     }
   };
   using pn_t = n_t*;
