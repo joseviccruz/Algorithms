@@ -22,7 +22,7 @@ class treap_t {
     template <class... Args>
     n_t(const Args&... args)
     : p(rng()), key(args...), size(1), rev(false),
-    data(key), l(nullptr), r(nullptr) {
+      data(key), l(nullptr), r(nullptr) {
     }
   };
   using pn_t = n_t*;
