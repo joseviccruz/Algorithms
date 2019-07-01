@@ -25,7 +25,6 @@ class treap_t {
     data(key), l(nullptr), r(nullptr) {
     }
   };
-  
   using pn_t = n_t*;
   
   pn_t root;
@@ -34,14 +33,11 @@ class treap_t {
   d_t data(pn_t t) { return t ? t->data : d_t(); }
   
   pn_t update(pn_t t) {
-    if (t == nullptr)
-      return t;
+    if (t == nullptr) return t;
     t->size = 1 + size(t->l) + size(t->r);
     t->data = d_t(d_t(t->key), d_t(data(t->l), data(t->r)));
-    if (t->l != nullptr)
-      t->l->rev ^= t->rev;
-    if (t->r != nullptr)
-      t->r->rev ^= t->rev;
+    if (t->l != nullptr) t->l->rev ^= t->rev;
+    if (t->r != nullptr) t->r->rev ^= t->rev;
     if (t->rev) {
       swap(t->l, t->r);
       t->rev = false;
@@ -79,35 +75,25 @@ class treap_t {
   }
   
   pn_t find_by_order(pn_t t, int n) {
-    if (t == nullptr)
-      return t;
+    if (t == nullptr) return t;
     update(t);
-    if (n < size(t->l))
-      return find_by_order(t->l, n);
-    else if (n == size(t->l))
-      return t;
+    if (n < size(t->l)) return find_by_order(t->l, n);
+    else if (n == size(t->l)) return t;
     return find_by_order(t->r, n - size(t->l) - 1);
   }
   
   void clear(pn_t &t) {
-    if (t == nullptr)
-      return;
-    if (t->l)
-      clear(t->l);
-    if (t->r)
-      clear(t->r);
+    if (t == nullptr) return;
+    if (t->l) clear(t->l);
+    if (t->r) clear(t->r);
     delete t;
     t = nullptr;
   }
 
 public:
-  treap_t() : root(nullptr) {
-  }
-  
-  void clear() { clear(root); }
-  
+  treap_t() : root(nullptr) {}
   ~treap_t() { clear(); }
-  
+  void clear() { clear(root); }
   int size() { return size(root); }
   
   template <class... Args>
@@ -122,8 +108,7 @@ public:
     split(root, n, a, b);
     split(b, 1, c, d);
     root = merge(a, d);
-    if (c == nullptr)
-      return false;
+    if (c == nullptr) return false;
     delete c;
     return true;
   }
@@ -149,8 +134,7 @@ public:
     pn_t a, b, c, d;
     split(root, l, a, d);
     split(d, r - l + 1, b, c);
-    if (b != nullptr)
-      b->rev ^= true;
+    if (b != nullptr) b->rev ^= true;
     root = merge(a, merge(b, c));
   }
 };
