@@ -10,7 +10,7 @@ struct polar_cmp {
   }
 };
 
-template <class RandomIt, class... Args>
+template <class RandomIt>
 typename enable_if<is_same<typename iterator_traits<RandomIt>::value_type, pt_t>::value>::type
 sort_polar(RandomIt first, RandomIt last, const pt_t& center) {
   first = partition(first, last, [&center](const pt_t& point) {
