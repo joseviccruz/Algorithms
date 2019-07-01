@@ -20,8 +20,8 @@ class treap_t {
     n_t *l, *r;
     template <class... Args>
     n_t(const Args&... args)
-    : p(rng()), key(args...),
-      size(1), rev(false), data(key), l(nullptr), r(nullptr) {
+    : p(rng()), key(args...), size(1), rev(false),
+      data(key), l(nullptr), r(nullptr) {
     }
   };
   using pn_t = n_t*;
@@ -31,7 +31,7 @@ class treap_t {
   int size(pn_t t) { return t ? t->size : 0; }
   d_t data(pn_t t) { return t ? t->data : d_t(); }
   
-  pn_t update(pn_t t) {
+  pn_t push(pn_t t) {
     if (t == nullptr) return t;
     t->size = 1 + size(t->l) + size(t->r);
     t->data = d_t(d_t(t->key), d_t(data(t->l), data(t->r)));
@@ -45,37 +45,37 @@ class treap_t {
   }
   
   void split(pn_t &t, int k, pn_t &a, pn_t &b) {
-    update(t);
+    push(t);
     pn_t tmp;
     if (t == nullptr)
       a = b = nullptr;
     else if (size(t->l) < k) {
       split(t->r, k - size(t->l) - 1, tmp, b);
       t->r = tmp;
-      a = update(t);
+      a = push(t);
     } else {
       split(t->l, k, a, tmp);
       t->l = tmp;
-      b = update(t);
+      b = push(t);
     }
   }
   
   pn_t merge(pn_t a, pn_t b) {
-    update(a), update(b);
+    push(a), push(b);
     pn_t tmp;
     if (a == nullptr || b == nullptr)
       return a ? a : b;
     if (a->p < b->p) {
       a->r = merge(a->r, b);
-      return update(a);
+      return push(a);
     }
     b->l = merge(a, b->l);
-    return update(b);
+    return push(b);
   }
   
   pn_t find_by_order(pn_t t, int n) {
     if (t == nullptr) return t;
-    update(t);
+    push(t);
     if (n < size(t->l)) return find_by_order(t->l, n);
     else if (n == size(t->l)) return t;
     return find_by_order(t->r, n - size(t->l) - 1);
