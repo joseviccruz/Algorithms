@@ -16,7 +16,7 @@ class stringhashing_t {
 
   void precompute(int n) {
     int sz = p_pow.size();
-    p_pow.resize(max(sz, n));
+    p_pow.resize(max(sz, n + 1));
     for (int i = sz; i <= n; i++)
       p_pow[i] = (p_pow[i - 1] * p) % md;
   }
