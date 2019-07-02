@@ -1,48 +1,29 @@
 using lint = long long;
 
-template <class T>
-T gcd(T a, T b, T &x, T &y) {
-  if (a == 0) {
-    x = 0;
-    y = 1;
-    return b;
-  }
-  T p = b / a;
-  T g = gcd(b - p * a, a, y, x);
-  x -= p * y;
-  return g;
-}
-
-// p is a prime number roughly equal to the number of characters in the input alphabet
-// md is a large prime number
-// pass a function that fixes the alphabet, ex:
-// lowercase alphabet: return c - 'a';
-
+/**
+ * p is a prime number roughly equal to the number of characters in the input alphabet
+ * good p:  {29, 31, 37, 61, 67, 71, 73, 79, 101, 103, 107, 109, 113, 127 251, 257, 263, 269}
+ * md is a large prime number
+ * good md: {1e9 + 7, 1e9 + 9, 1e9 + 21, 1e9 + 87, (1ll << 61) - 1}
+ * pass a function that fixes the alphabet, ex:
+ * lowercase alphabet: return c - 'a';
+ * substr_hash = (((hash[(0 : r)] - hash[(0 : l - 1)] + mod) % mod) * inverse_prime_pow[i] + mod) % mod
+**/
 template <lint p, lint md, class T = string>
-class hashing_t {
-  int sz;
+class stringhashing_t {
   vector<lint> p_pow;
-  vector<lint> p_inv;
   function<int(int)> f;
 
   void precompute(int n) {
-    if (sz > n)
-      return;
-    n++;
-    p_pow.resize(n);
-    p_inv.resize(n);
-    lint x, y;
-    for (int i = sz; i < n; i++) {
+    int sz = p_pow.size();
+    p_pow.resize(max(sz, n));
+    for (int i = sz; i <= n; i++)
       p_pow[i] = (p_pow[i - 1] * p) % md;
-      assert(gcd(p_pow[i], md, x, y) == 1);
-      p_inv[i] = (x % md + md) % md;
-    }
-    sz = n;
   }
 
 public:
-  hashing_t(const function<int(int)> &fix_string_function)
-  : f(fix_string_function), sz(1), p_pow(1, 1), p_inv(1, 1) {
+  stringhashing_t(const function<int(int)> &fix_string_function)
+  : f(fix_string_function), p_pow(1, 1) {
   }
 
   lint get(const T &s, int n) {
@@ -54,9 +35,7 @@ public:
     return ret;
   }
 
-  lint get(const T &s) {
-    return get(s, s.size());
-  }
+  lint get(const T &s) { return get(s, s.size()); }
 
   vector<lint> get_hashes(const T &s, int n) {
     precompute(n);
@@ -68,9 +47,7 @@ public:
     return ret;
   }
   
-  vector<lint> get_hashes(const T &s) {
-    return get_hashes(s, s.size());
-  }
+  vector<lint> get_hashes(const T &s) { return get_hashes(s, s.size()); }
 
   vector<int> rabin_karp(const T &s, int n, const T &u, int m) {
     precompute(max(n, m));
@@ -105,11 +82,5 @@ public:
       ret.back().push_back(h[i].second);
     }
     return ret;
-  }
-
-  lint substr_hash(const vector<lint> &h, int i, int j) {
-    precompute(j);
-    int l = (i > 0 ? h[i - 1] : 0), r = h[j];
-    return (((r - l + md) % md) * p_inv[i] + md) % md;
   }
 };
