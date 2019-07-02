@@ -102,7 +102,7 @@ public:
     root = merge(merge(a, new n_t(args...)), b);
   }
   
-  bool erase(int n) {
+  bool erase_at(int n) {
     pn_t a, b, c, d;
     split(root, n, a, b);
     split(b, 1, c, d);
