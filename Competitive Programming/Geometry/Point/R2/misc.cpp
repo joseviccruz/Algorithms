@@ -1,6 +1,11 @@
 // Warning: Take care with integer overflow
 // Some functions requires floating point
 
+F polar_angle(const pt_t &p, const pt_t &center = pt_t(0, 0)) {
+  F angle = atan2(p.y - center.y, p.x - center.x);
+  return angle;// + ((angle < 0) ? 2 * PI : 0);
+}
+
 // Check if Δ ABC is valid
 bool triangle(F a, F b, F c) {
   return cmp(a + b, gt, c) and cmp(a + c, gt, b) and cmp(b + c, gt, a);
