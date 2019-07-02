@@ -8,14 +8,12 @@ public:
   matrix_t() : mat({}) {
   }
 
-  matrix_t(const initializer_list<T> &il) {
+  matrix_t(const initializer_list<T> &il) : matrix_t() {
     auto ptr = il.begin();
-    for (int i = 0; i < n * m; i++) {
-      if (ptr != il.end())
-        mat[i / m][i % m] = *ptr++;
-      else
-        mat[i / m][i % m] = {};
-    }
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < m; j++)
+        if (ptr != il.end())
+          mat[i][j] = *ptr++;
   }
 
   template <int o>
