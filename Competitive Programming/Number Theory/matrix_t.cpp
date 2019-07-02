@@ -11,10 +11,9 @@ public:
   matrix_t(const initializer_list<T> &il) {
     auto ptr = il.begin();
     for (int i = 0; i < n * m; i++) {
-      if (ptr != il.end()) {
-        mat[i / m][i % m] = *ptr;
-        ptr++;
-      } else
+      if (ptr != il.end())
+        mat[i / m][i % m] = *ptr++;
+      else
         mat[i / m][i % m] = {};
     }
   }
@@ -25,7 +24,7 @@ public:
     for (int i = 0; i < n; i++)
       for (int j = 0; j < o; j++)
         for (int k = 0; k < m; k++)
-          ret.mat[i][j] = add(ret.mat[i][j], fmul(mat[i][k], other.mat[k][j]));
+          ret[i][j] = add(ret[i][j], fmul(mat[i][k], other[k][j]));
     return ret;
   }
 };
