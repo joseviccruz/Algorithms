@@ -19,7 +19,7 @@ public:
   }
 
   template <int o>
-  inline matrix_t<n, o> operator * (const matrix_t<m, o> &other) {
+  inline matrix_t<n, o> operator * (matrix_t<m, o> other) {
     matrix_t<n, o> ret;
     for (int i = 0; i < n; i++)
       for (int j = 0; j < o; j++)
