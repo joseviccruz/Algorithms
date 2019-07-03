@@ -51,12 +51,10 @@ class treap_t {
       a = b = nullptr;
     else if (size(t->l) < k) {
       split(t->r, k - size(t->l) - 1, tmp, b);
-      t->r = tmp;
-      a = push(t);
+      t->r = tmp, a = push(t);
     } else {
       split(t->l, k, a, tmp);
-      t->l = tmp;
-      b = push(t);
+      t->l = tmp, b = push(t);
     }
   }
   
