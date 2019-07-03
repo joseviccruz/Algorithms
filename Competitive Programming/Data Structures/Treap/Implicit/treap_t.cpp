@@ -34,7 +34,7 @@ class treap_t {
   pn_t push(pn_t t) {
     if (t == nullptr) return t;
     t->size = 1 + size(t->l) + size(t->r);
-    t->data = d_t(d_t(t->key), d_t(data(t->l), data(t->r)));
+    t->data = d_t(data(t->l), d_t(d_t(t->key), data(t->r)));
     if (t->l != nullptr) t->l->rev ^= t->rev;
     if (t->r != nullptr) t->r->rev ^= t->rev;
     if (t->rev) {
