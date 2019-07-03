@@ -1,3 +1,5 @@
+mt19937 rng(chrono::high_resolution_clock::now().time_since_epoch().count());
+
 struct value_t {
 
   value_t() {
