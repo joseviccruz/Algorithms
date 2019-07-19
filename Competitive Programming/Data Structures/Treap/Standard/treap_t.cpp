@@ -102,7 +102,7 @@ class treap_t {
     pn_t to_erase;
     if (k < t->key) to_erase = erase(t->l, k);
     else if (k == t->key) {
-      pn_t to_erase(t);
+      to_erase = t;
       t = merge(t->l, t->r);
     } else to_erase = erase(t->r, k);
     push(t);
