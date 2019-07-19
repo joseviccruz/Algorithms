@@ -10,13 +10,15 @@ struct value_t {
 };
 
 struct node_t {
-  long long sum;
   
-  node_t(int sum = 0) : sum(sum) {
+  node_t() {
   }
-    
+  /*
+  node_t(const ... &key, const node_t &node) {
+    // When occurs a split..
+  }
+  */
   node_t(const node_t &lhs, const node_t &rhs) {
-    sum = lhs.sum + rhs.sum;
   }
 };
 
@@ -44,7 +46,7 @@ class treap_t {
   pn_t push(pn_t t) {
     if (t == nullptr) return t;
     t->size = 1 + size(t->l) + size(t->r);
-    t->data = d_t(data(t->l), d_t(d_t(t->key), data(t->r)));
+    t->data = d_t(data(t->l), d_t(d_t(t->key, t->data), data(t->r)));
     return t;
   }
   
