@@ -10,11 +10,13 @@ struct value_t {
 };
 
 struct node_t {
+  long long sum;
   
-  node_t() {
+  node_t(int sum = 0) : sum(sum) {
   }
     
   node_t(const node_t &lhs, const node_t &rhs) {
+    sum = lhs.sum + rhs.sum;
   }
 };
 
@@ -27,9 +29,9 @@ class treap_t {
     d_t data;
     n_t *l, *r;
     template <class... Args>
-    n_t(const Args&... args)
-    : p(rng()), key(args...), size(1),
-      data(key), l(nullptr), r(nullptr) {
+    n_t(const T &key, const Args&... args)
+    : p(rng()), key(key), size(1),
+      data(args...), l(nullptr), r(nullptr) {
     }
   };
   using pn_t = n_t*;
@@ -122,10 +124,10 @@ public:
   int size() { return size(root); }
   
   template <class... Args>
-  void emplace(const Args&... args) {
+  void emplace(const T &key, const Args&... args) {
     pn_t a, b;
-    split(root, T(args...), a, b);
-    root = merge(merge(a, new n_t(args...)), b);
+    split(root, key, a, b);
+    root = merge(merge(a, new n_t(key, args...)), b);
   }
   
   bool erase(T k) {
