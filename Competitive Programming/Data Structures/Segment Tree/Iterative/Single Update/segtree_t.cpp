@@ -19,7 +19,7 @@ class segtree_t {
 
 public:
   template <class... Args>
-  void modify(int x, Args&... args) {
+  void modify(int x, const Args&... args) {
     assert(0 <= x && x <= n - 1);
     for (tree[x += n] = n_t(args...), x >>= 1; x > 0; x >>= 1)
       tree[x] = n_t(tree[x + x], tree[x + x + 1]);
