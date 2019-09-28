@@ -45,6 +45,7 @@ public:
 
   T get() {
     assert(!stl.empty() || !str.empty());
+    // transfer
     if (stl.empty())
       return str.top().second;
     return cmp(stl.top().second, str.top().second) ? stl.top().second : str.top().second;
