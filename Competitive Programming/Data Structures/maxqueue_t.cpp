@@ -31,7 +31,7 @@ public:
   void pop() {
     if (str.empty())
       transfer();
-    else
+    if (!str.empty())
       str.pop();
   }
 
@@ -45,9 +45,20 @@ public:
 
   T get() {
     assert(!stl.empty() || !str.empty());
-    // transfer
-    if (stl.empty())
+    if (!stl.empty() && !str.empty()) {
+      return cmp(stl.top().second, str.top().second) ? stl.top().second : str.top().second;        
+    }
+    if (stl.empty()) {
       return str.top().second;
-    return cmp(stl.top().second, str.top().second) ? stl.top().second : str.top().second;
+    }
+    return stl.top().second;
+  }
+
+  size_t size() {
+    return stl.size() + str.size();
+  }
+
+  bool empty() {
+    return size() == 0;
   }
 };
