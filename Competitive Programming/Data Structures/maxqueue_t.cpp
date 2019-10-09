@@ -1,7 +1,7 @@
 template <class T, class Compare = greater<T>>
 class maxqueue_t {
   Compare cmp;
-  stack<pair<T, T>> stl, str;
+  stack<pair<T, T>, vector<pair<T, T>>> stl, str;
 
   void transfer() {
     while (!stl.empty()) {
