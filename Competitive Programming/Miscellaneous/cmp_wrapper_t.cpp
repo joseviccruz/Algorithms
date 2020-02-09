@@ -24,5 +24,6 @@ class wrapper {
   template <class U> friend bool operator <=(const U &lhs, const wrapper &rhs) { return wrapper(lhs).operator <=(rhs); }
   template <class U> friend bool operator >=(const U &lhs, const wrapper &rhs) { return wrapper(lhs).operator >=(rhs); }
 
-  operator T &() { return value; }
+  constexpr operator const T &() const noexcept { return value; }
+  constexpr operator T &() { return value; }
 };
