@@ -12,9 +12,9 @@ class wrapper {
   template <class U> bool operator !=(const U &other) const { return !(*this == other); }
 
   template <class U> bool operator  <(const U &other) const { return !(*this == other) && (value < wrapper(other).value); }
-  template <class U> bool operator  >(const U &other) const { wrapper(other) < *this; }
-  template <class U> bool operator <=(const U &other) const { !(*this > other) || (*this == other); }
-  template <class U> bool operator >=(const U &other) const { !(*this < other) || (*this == other); }
+  template <class U> bool operator  >(const U &other) const { return wrapper(other) < *this; }
+  template <class U> bool operator <=(const U &other) const { return !(*this > other) || (*this == other); }
+  template <class U> bool operator >=(const U &other) const { return !(*this < other) || (*this == other); }
 
   template <class U> friend bool operator ==(const U &lhs, const wrapper &rhs) { return wrapper(lhs).operator ==(rhs); }
   template <class U> friend bool operator !=(const U &lhs, const wrapper &rhs) { return wrapper(lhs).operator !=(rhs); }
