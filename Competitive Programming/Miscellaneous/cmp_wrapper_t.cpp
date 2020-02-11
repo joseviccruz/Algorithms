@@ -7,6 +7,7 @@ class wrapper {
  
   constexpr wrapper() : value() { }
   template <class U> constexpr wrapper(const U &_value) : value(_value) { }
+  template <class U> constexpr wrapper(const wrapper<U> &_value) : value(_value) { }
   
   template <class U> bool operator ==(const U &other) const { return abs(value - wrapper(other).value) <= eps; }
   template <class U> bool operator !=(const U &other) const { return !(*this == other); }
