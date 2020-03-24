@@ -1,9 +1,10 @@
 using lint = long long;
 
-auto get_line(lint x1, lint y1, lint x2, lint y2) {
-  struct line_t {
-    lint a, b, c;
-  };
+struct line_t {
+  lint a, b, c;
+};
+
+line_t get_line(lint x1, lint y1, lint x2, lint y2) {
   if (x1 == x2) {
     return line_t({1, 0, -x1});
   } else if (y1 == y2) {
